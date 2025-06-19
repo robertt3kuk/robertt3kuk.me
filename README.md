@@ -1,39 +1,62 @@
-# robertt3kuk's Terminal Resume
+# robertt3kuk Terminal Portfolio
 
-This project is a unique, interactive terminal-style resume for robertt3kuk, built with React and styled to resemble a Vim editor with a Gruvbox Dark theme.
+A beautiful terminal-style portfolio website built with Svelte and Bun.
 
 ## Features
 
-- Vim-like navigation and modes
-- Interactive command system
-- GitHub projects showcase
-- Contact information with clickable links
+- 🖥️ Interactive terminal interface
+- ⌨️ Real command system with history navigation
+- 🌓 Dark/Light theme support
+- 📱 Fully responsive design
+- 📄 CV download functionality
+- 🚀 Fast and lightweight
 
-## Getting Started
+## Available Commands
 
-To run this project locally:
+- `help` - Show all available commands
+- `about` - Display personal information
+- `skills` - List technical skills
+- `experience` - Show work experience
+- `projects` - Display GitHub projects
+- `contact` - Show contact information
+- `download` - Download CV as PDF
+- `clear` - Clear terminal
+- `theme [light/dark]` - Change terminal theme
+- `ls` - List available sections
+- `cat [section]` - Display section content
+- `whoami` - Display current user
+- `date` - Show current date and time
+- `echo [text]` - Echo text back
+- `neofetch` - Display system information
 
-1. Clone the repository
-2. Run `bun install` to install dependencies
-3. Run `bun start` to start the development server
+## Development
+
+```bash
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev
+
+# Build for production
+bun run build
+
+# Preview production build
+bun run preview
+```
 
 ## Deployment
 
-To deploy to GitHub Pages:
+The site is automatically deployed to GitHub Pages on push to the master branch.
 
-1. Update the `homepage` in `package.json` with your domain
-2. Run `bun run deploy`
+## Technologies Used
 
-## Built With
-
-- React
-- lucide-react for icons
-- Hack font for authentic terminal look
-
-## Author
-
-robertt3kuk
+- Svelte 5
+- Vite
+- Bun
+- GitHub Actions
+- GitHub Pages
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT

@@ -1,0 +1,52 @@
+:root {
+  --terminal-bg: #1e1e2e;
+  --terminal-fg: #cdd6f4;
+  --terminal-border: #313244;
+  --terminal-header: #181825;
+  --terminal-prompt: #89b4fa;
+  --terminal-error: #f38ba8;
+  --terminal-success: #a6e3a1;
+  --terminal-warning: #f9e2af;
+  --terminal-info: #89dceb;
+  --terminal-selection: #45475a;
+  --terminal-cursor: #f5e0dc;
+  --scrollbar-bg: #313244;
+  --scrollbar-thumb: #585b70;
+}
+
+[data-theme="light"] {
+  --terminal-bg: #eff1f5;
+  --terminal-fg: #4c4f69;
+  --terminal-border: #dce0e8;
+  --terminal-header: #e6e9ef;
+  --terminal-prompt: #1e66f5;
+  --terminal-error: #d20f39;
+  --terminal-success: #40a02b;
+  --terminal-warning: #df8e1d;
+  --terminal-info: #04a5e5;
+  --terminal-selection: #ccd0da;
+  --terminal-cursor: #dc8a78;
+  --scrollbar-bg: #dce0e8;
+  --scrollbar-thumb: #9ca0b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background: var(--terminal-bg);
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
