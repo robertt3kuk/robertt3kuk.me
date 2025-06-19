@@ -1,24 +1,205 @@
-import { createSignal, onMount, For } from 'solid-js';
+import { createSignal, onMount, For, createEffect } from 'solid-js';
 import { commands, personalInfo } from './terminalData';
 import './terminal.css';
 
+const colorSchemes = {
+  dark: {
+    cyberpunk: {
+      name: 'Cyberpunk',
+      bg: '#0a0e1a',
+      fg: '#00ffcc',
+      border: '#1a2332',
+      header: '#0d1117',
+      prompt: '#00ffcc',
+      error: '#ff5f57',
+      text: '#8b92a8',
+      accent: '#00ffcc',
+      glow: 'rgba(0, 255, 255, 0.5)'
+    },
+    gruvbox: {
+      name: 'Gruvbox Dark',
+      bg: '#282828',
+      fg: '#ebdbb2',
+      border: '#3c3836',
+      header: '#1d2021',
+      prompt: '#fabd2f',
+      error: '#fb4934',
+      text: '#ebdbb2',
+      accent: '#fabd2f',
+      glow: 'rgba(250, 189, 47, 0.5)'
+    },
+    catppuccin: {
+      name: 'Catppuccin Mocha',
+      bg: '#1e1e2e',
+      fg: '#cdd6f4',
+      border: '#313244',
+      header: '#181825',
+      prompt: '#89b4fa',
+      error: '#f38ba8',
+      text: '#cdd6f4',
+      accent: '#89b4fa',
+      glow: 'rgba(137, 180, 250, 0.5)'
+    },
+    dracula: {
+      name: 'Dracula',
+      bg: '#282a36',
+      fg: '#f8f8f2',
+      border: '#44475a',
+      header: '#21222c',
+      prompt: '#50fa7b',
+      error: '#ff5555',
+      text: '#f8f8f2',
+      accent: '#50fa7b',
+      glow: 'rgba(80, 250, 123, 0.5)'
+    },
+    nord: {
+      name: 'Nord',
+      bg: '#2e3440',
+      fg: '#d8dee9',
+      border: '#3b4252',
+      header: '#242933',
+      prompt: '#88c0d0',
+      error: '#bf616a',
+      text: '#d8dee9',
+      accent: '#88c0d0',
+      glow: 'rgba(136, 192, 208, 0.5)'
+    }
+  },
+  light: {
+    cyberpunk: {
+      name: 'Cyberpunk Light',
+      bg: '#f6f8fa',
+      fg: '#3b82f6',
+      border: '#d1d5db',
+      header: '#ffffff',
+      prompt: '#3b82f6',
+      error: '#dc2626',
+      text: '#374151',
+      accent: '#3b82f6',
+      glow: 'rgba(59, 130, 246, 0.5)'
+    },
+    gruvbox: {
+      name: 'Gruvbox Light',
+      bg: '#fbf1c7',
+      fg: '#3c3836',
+      border: '#ebdbb2',
+      header: '#f9f5d7',
+      prompt: '#d79921',
+      error: '#cc241d',
+      text: '#3c3836',
+      accent: '#d79921',
+      glow: 'rgba(215, 153, 33, 0.5)'
+    },
+    catppuccin: {
+      name: 'Catppuccin Latte',
+      bg: '#eff1f5',
+      fg: '#4c4f69',
+      border: '#dce0e8',
+      header: '#e6e9ef',
+      prompt: '#1e66f5',
+      error: '#d20f39',
+      text: '#4c4f69',
+      accent: '#1e66f5',
+      glow: 'rgba(30, 102, 245, 0.5)'
+    },
+    solarized: {
+      name: 'Solarized Light',
+      bg: '#fdf6e3',
+      fg: '#657b83',
+      border: '#eee8d5',
+      header: '#eee8d5',
+      prompt: '#268bd2',
+      error: '#dc322f',
+      text: '#657b83',
+      accent: '#268bd2',
+      glow: 'rgba(38, 139, 210, 0.5)'
+    },
+    github: {
+      name: 'GitHub Light',
+      bg: '#ffffff',
+      fg: '#24292e',
+      border: '#e1e4e8',
+      header: '#f6f8fa',
+      prompt: '#0366d6',
+      error: '#d73a49',
+      text: '#24292e',
+      accent: '#0366d6',
+      glow: 'rgba(3, 102, 214, 0.5)'
+    }
+  }
+};
+
 function Terminal(props) {
-  const [history, setHistory] = createSignal([
-    { type: 'output', content: 'Welcome to robertt3kuk\'s Terminal Portfolio! 🚀' },
-    { type: 'output', content: 'Type "help" to see available commands.' },
-    { type: 'output', content: '' }
-  ]);
-  
+  const [history, setHistory] = createSignal([]);
   const [currentCommand, setCurrentCommand] = createSignal('');
   const [commandHistory, setCommandHistory] = createSignal([]);
   const [historyIndex, setHistoryIndex] = createSignal(-1);
+  const [showColorPicker, setShowColorPicker] = createSignal(false);
+  const [currentScheme, setCurrentScheme] = createSignal('cyberpunk');
+  const [isTyping, setIsTyping] = createSignal(false);
+  const [typingText, setTypingText] = createSignal('');
+  const [typingIndex, setTypingIndex] = createSignal(0);
   
   let terminalEl;
   let inputEl;
 
+  // Welcome message to type
+  const welcomeMessage = [
+    'System initializing...',
+    '',
+    '██████╗  ██████╗ ██████╗ ███████╗██████╗ ████████╗████████╗██████╗ ██╗  ██╗██╗   ██╗██╗  ██╗',
+    '██╔══██╗██╔═══██╗██╔══██╗██╔════╝██╔══██╗╚══██╔══╝╚══██╔══╝╚════██╗██║ ██╔╝██║   ██║██║ ██╔╝',
+    '██████╔╝██║   ██║██████╔╝█████╗  ██████╔╝   ██║      ██║    █████╔╝█████╔╝ ██║   ██║█████╔╝ ',
+    '██╔══██╗██║   ██║██╔══██╗██╔══╝  ██╔══██╗   ██║      ██║    ╚═══██╗██╔═██╗ ██║   ██║██╔═██╗ ',
+    '██║  ██║╚██████╔╝██████╔╝███████╗██║  ██║   ██║      ██║   ██████╔╝██║  ██╗╚██████╔╝██║  ██╗',
+    '╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝',
+    '',
+    'Terminal Portfolio v2.0 | Powered by SolidJS & Bun',
+    `Welcome, ${new Date().toLocaleString()}`,
+    '',
+    'Type "help" for available commands',
+    'Type "message" to send me a message',
+    'Type "theme" to change color scheme',
+    ''
+  ];
+
+  // Type welcome message on mount
   onMount(() => {
-    if (inputEl) {
-      inputEl.focus();
+    typeWelcomeMessage();
+  });
+
+  const typeWelcomeMessage = async () => {
+    setIsTyping(true);
+    for (const line of welcomeMessage) {
+      await typeLineWithDelay(line);
+    }
+    setIsTyping(false);
+    if (inputEl) inputEl.focus();
+  };
+
+  const typeLineWithDelay = (text) => {
+    return new Promise((resolve) => {
+      setHistory([...history(), { type: 'output', content: text, animated: true }]);
+      setTimeout(() => {
+        scrollToBottom();
+        resolve();
+      }, 100);
+    });
+  };
+
+  createEffect(() => {
+    const scheme = colorSchemes[props.theme()][currentScheme()];
+    if (scheme) {
+      const root = document.documentElement;
+      root.style.setProperty('--terminal-bg', scheme.bg);
+      root.style.setProperty('--terminal-fg', scheme.fg);
+      root.style.setProperty('--terminal-border', scheme.border);
+      root.style.setProperty('--terminal-header', scheme.header);
+      root.style.setProperty('--terminal-prompt', scheme.prompt);
+      root.style.setProperty('--terminal-error', scheme.error);
+      root.style.setProperty('--terminal-text', scheme.text);
+      root.style.setProperty('--terminal-accent', scheme.accent);
+      root.style.setProperty('--terminal-glow', scheme.glow);
     }
   });
 
@@ -35,6 +216,13 @@ function Terminal(props) {
     setHistory([...history(), { type: 'command', content: `$ ${trimmedCmd}` }]);
     
     if (trimmedCmd === '') return;
+    
+    if (commandName === 'theme') {
+      if (args.length === 0) {
+        setShowColorPicker(!showColorPicker());
+        return;
+      }
+    }
     
     if (commands[commandName]) {
       try {
@@ -87,13 +275,25 @@ function Terminal(props) {
         setHistoryIndex(-1);
         setCurrentCommand('');
       }
+    } else if (e.key === 'Escape' && showColorPicker()) {
+      setShowColorPicker(false);
     }
   };
 
   const focusInput = () => {
-    if (inputEl) {
+    if (inputEl && !isTyping()) {
       inputEl.focus();
     }
+  };
+
+  const selectScheme = (scheme) => {
+    setCurrentScheme(scheme);
+    setShowColorPicker(false);
+    setHistory([...history(), { 
+      type: 'output', 
+      content: `Color scheme changed to ${colorSchemes[props.theme()][scheme].name}` 
+    }]);
+    scrollToBottom();
   };
 
   return (
@@ -122,27 +322,57 @@ function Terminal(props) {
       <div class="content">
         <For each={history()}>
           {(line) => (
-            <div class={`line ${line.type}`}>
+            <div class={`line ${line.type} ${line.animated ? 'typing' : ''}`}>
               {line.content}
             </div>
           )}
         </For>
         
-        <div class="input-line">
-          <span class="prompt">$ </span>
-          <input
-            ref={inputEl}
-            type="text"
-            value={currentCommand()}
-            onInput={(e) => setCurrentCommand(e.target.value)}
-            onKeyDown={handleKeyDown}
-            class="input"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck={false}
-          />
-        </div>
+        {showColorPicker() && (
+          <div class="color-picker">
+            <div class="color-picker-title">Select Color Scheme:</div>
+            <div class="color-schemes">
+              <For each={Object.entries(colorSchemes[props.theme()])}>
+                {([key, scheme]) => (
+                  <button 
+                    class={`scheme-option ${currentScheme() === key ? 'active' : ''}`}
+                    onClick={() => selectScheme(key)}
+                    style={{
+                      '--scheme-bg': scheme.bg,
+                      '--scheme-fg': scheme.fg,
+                      '--scheme-border': scheme.border,
+                      '--scheme-accent': scheme.accent
+                    }}
+                  >
+                    <span class="scheme-preview">
+                      <span class="preview-text">Aa</span>
+                    </span>
+                    <span class="scheme-name">{scheme.name}</span>
+                  </button>
+                )}
+              </For>
+            </div>
+          </div>
+        )}
+        
+        {!isTyping() && (
+          <div class="input-line">
+            <span class="prompt">$ </span>
+            <input
+              ref={inputEl}
+              type="text"
+              value={currentCommand()}
+              onInput={(e) => setCurrentCommand(e.target.value)}
+              onKeyDown={handleKeyDown}
+              class="input"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck={false}
+            />
+            <span class="cursor"></span>
+          </div>
+        )}
       </div>
       
       <div class="footer">

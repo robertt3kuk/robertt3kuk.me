@@ -1,29 +1,18 @@
 :root {
-  --terminal-bg: #1e1e2e;
-  --terminal-fg: #cdd6f4;
-  --terminal-border: #313244;
-  --terminal-header: #181825;
-  --terminal-prompt: #89b4fa;
-  --terminal-error: #f38ba8;
-  --terminal-success: #a6e3a1;
-  --terminal-warning: #f9e2af;
-  --terminal-info: #89dceb;
-  --terminal-selection: #45475a;
-  --terminal-cursor: #f5e0dc;
+  /* Default to cyberpunk dark */
+  --terminal-bg: #0a0e1a;
+  --terminal-fg: #00ffcc;
+  --terminal-border: #1a2332;
+  --terminal-header: #0d1117;
+  --terminal-prompt: #00ffcc;
+  --terminal-error: #ff5f57;
+  --terminal-text: #8b92a8;
+  --terminal-accent: #00ffcc;
+  --terminal-glow: rgba(0, 255, 255, 0.5);
 }
 
-[data-theme="light"] {
-  --terminal-bg: #eff1f5;
-  --terminal-fg: #4c4f69;
-  --terminal-border: #dce0e8;
-  --terminal-header: #e6e9ef;
-  --terminal-prompt: #1e66f5;
-  --terminal-error: #d20f39;
-  --terminal-success: #40a02b;
-  --terminal-warning: #df8e1d;
-  --terminal-info: #04a5e5;
-  --terminal-selection: #ccd0da;
-  --terminal-cursor: #dc8a78;
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .app-container {
@@ -32,12 +21,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1e1e2e 0%, #313244 100%);
+  background: 
+    radial-gradient(ellipse at top left, rgba(var(--terminal-accent-rgb), 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(var(--terminal-accent-rgb), 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 [data-theme="light"] .app-container {
-  background: linear-gradient(135deg, #e6e9ef 0%, #ccd0da 100%);
+  background: 
+    radial-gradient(ellipse at top left, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
 }
 
 @media (max-width: 768px) {
