@@ -8,13 +8,13 @@ export const personalInfo = {
   github: 'https://github.com/robertt3kuk',
   telegram: 'https://t.me/biqontie',
   location: 'Kazakhstan',
-  summary: 'Skilled Go software engineer with expertise in MongoDB and PostgreSQL databases. Experienced in GraphQL, REST API, and gRPC technologies. Passionate about Linux (Unix) operating systems with strong DevOps skills.',
+  summary: 'Accomplished Go backend developer with over four years of experience in designing and implementing scalable systems. Proficient in MongoDB, PostgreSQL, and Kubernetes, with expertise in microservices architecture and API development using gRPC and GraphQL. Experienced in building secure internal banking systems with governmental integrations. Skilled in DevOps practices, including containerization, CI/CD pipelines, and system monitoring with tools like Grafana Loki. Passionate about writing clean, maintainable code and automating development workflows.',
   skills: {
-    languages: ['Go', 'JavaScript', 'Python', 'SQL'],
-    databases: ['MongoDB', 'PostgreSQL', 'Redis'],
-    technologies: ['gRPC', 'REST API', 'GraphQL', 'Docker', 'Kubernetes'],
-    cloud: ['AWS', 'Google Cloud', 'DigitalOcean'],
-    tools: ['Git', 'Linux', 'Caddy', 'Nginx', 'GrafanaLoki', 'MinIO']
+    languages: ['Go', 'JavaScript'],
+    databases: ['MongoDB', 'PostgreSQL'],
+    technologies: ['gRPC', 'GraphQL', 'Docker', 'Kubernetes', 'CI/CD', 'IPFS', 'Ethereum Go library'],
+    cloud: ['AWS', 'GCP', 'AZURE', 'Yandex Cloud'],
+    tools: ['Grafana Loki', 'MinIO', 'Code Generation Tooling', 'Linux', 'DevOps']
   },
   experience: [
     {
@@ -22,49 +22,85 @@ export const personalInfo = {
       position: 'Golang Backend Developer',
       period: 'August 2024 - Present',
       highlights: [
-        'Built backend system using Ethereum Go library, integrating smart contracts',
-        'Tested smart contracts on Sepolia network',
-        'Utilized IPFS via Pinata for decentralized file storage',
-        'Managed PostgreSQL database for secure data storage',
-        'Used MinIO for off-chain storage of images'
+        'Developed blockchain-based backend using Ethereum Go library, integrating smart contracts on Sepolia network',
+        'Implemented decentralized image storage with IPFS via Pinata and off-chain storage with MinIO',
+        'Optimized PostgreSQL database for secure and efficient data management',
+        'Collaborated with product teams to deliver scalable technical solutions'
+      ],
+      subProjects: [
+        {
+          name: 'Zaman-Bank project (via RedMadRobot)',
+          period: 'November 2024 - Present',
+          teams: [
+            {
+              name: 'Retail Platform Team',
+              period: 'November 2024 - December 2024',
+              highlights: [
+                'Contributed to core library of internal banking system with multiple governmental integrations',
+                'Developed microservices to support banking operations and ensure system scalability',
+                'Implemented log monitoring in Kubernetes to enhance system observability',
+                'Designed secret error case handling with numerical error identification for precise debugging'
+              ]
+            },
+            {
+              name: 'SME Platform Team',
+              period: 'January 2025 - Present',
+              highlights: [
+                'Created bridge service to facilitate governmental integrations for internal banking system',
+                'Enhanced core library with reusable components for SME banking operations',
+                'Developed code generation tooling using templates to automate boilerplate code creation',
+                'Streamlined internal code management and development workflows'
+              ]
+            }
+          ]
+        }
       ]
     },
     {
       company: 'Union Strategies',
       position: 'Golang Backend Developer',
-      period: 'Feb 2023 - July 2024',
+      period: 'February 2023 - July 2024',
+      location: 'Toronto',
       highlights: [
-        'Developed and maintained backend for union\'s system',
-        'Monitored system performance and implemented improvements',
-        'Designed and implemented new services',
-        'Stayed updated with Go programming language trends'
+        'Developed microservices for union management system using Go, PostgreSQL, and gRPC',
+        'Enhanced system observability with Grafana Loki for improved monitoring',
+        'Collaborated with product teams to implement feature enhancements and optimize performance'
       ]
     },
     {
       company: 'mvp14',
       position: 'Golang Backend Developer',
-      period: 'Feb 2023 - Jun 2023',
+      period: 'February 2023 - June 2023',
+      location: 'Astana',
       highlights: [
-        'Developed CRM system for construction workers using Golang, PostgreSQL, and S3',
-        'Implemented user management, task tracking, and QR code verification'
+        'Developed CRM system for construction workers using Golang, PostgreSQL, and GraphQL',
+        'Implemented user management, task management, and QR code scanning functionality',
+        'Enabled workers to scan QR codes for task location verification and capture completion proof',
+        'Implemented subtask management for complex tasks and employee performance monitoring'
       ]
     },
     {
       company: 'BilimX',
       position: 'Golang Backend Developer',
-      period: 'Nov 2022 - Feb 2023',
+      period: 'November 2022 - February 2023',
+      location: 'Pavlodar',
       highlights: [
         'Created edtech platform for schools using Golang and PostgreSQL',
-        'Implemented secure session management and licensing system'
+        'Provided accessible 3D models, study plans, and detailed descriptions for subjects like anatomy and physics',
+        'Implemented secure session management, allowing only one session per user within school territory',
+        'Developed licensing system to prevent unauthorized access'
       ]
     },
     {
       company: 'WeLoveFlutterFlow',
       position: 'Golang Backend Developer',
-      period: 'Jun 2021 - Oct 2022',
+      period: 'June 2021 - October 2022',
+      location: 'Astana',
       highlights: [
-        'Built CRM platform using Golang & PostgreSQL',
-        'Developed RESTful API and role-based visibility features',
+        'Built CRM platform using Golang and PostgreSQL',
+        'Developed RESTful API, task tracking, and role-based visibility features',
+        'Managed access for developers, managers, and DevOps engineers',
+        'Implemented customizable layers for task and project visibility',
         'Created efficient project management and collaboration solution'
       ]
     }
@@ -113,6 +149,7 @@ export const commands = {
         '  date           - Show current date and time',
         '  echo [text]    - Echo text back',
         '  neofetch       - Display system information',
+        '  message        - Send a message to me',
         '',
         'Pro tip: Use arrow keys to navigate command history'
       ];
@@ -153,11 +190,26 @@ export const commands = {
     execute: () => {
       const expOutput = ['Work Experience:', ''];
       personalInfo.experience.forEach(job => {
-        expOutput.push(`${job.company} | ${job.position}`);
+        expOutput.push(`${job.company}${job.location ? ', ' + job.location : ''} | ${job.position}`);
         expOutput.push(`${job.period}`);
         job.highlights.forEach(highlight => {
           expOutput.push(`  • ${highlight}`);
         });
+        
+        // Handle subProjects if they exist (for Gexabyte)
+        if (job.subProjects) {
+          job.subProjects.forEach(project => {
+            expOutput.push('');
+            expOutput.push(`  ${project.name} (${project.period}):`);
+            project.teams.forEach(team => {
+              expOutput.push(`    ${team.name} (${team.period}):`);
+              team.highlights.forEach(highlight => {
+                expOutput.push(`      • ${highlight}`);
+              });
+            });
+          });
+        }
+        
         expOutput.push('');
       });
       return expOutput;
@@ -304,6 +356,79 @@ export const commands = {
         '  `---------\'  '
       ];
       return asciiArt;
+    }
+  },
+  
+  message: {
+    description: 'Send a message to me',
+    execute: async (args, { addToHistory, currentInput }) => {
+      if (args.length === 0) {
+        return [
+          'Usage: message [your message here]',
+          '',
+          'Example: message Hello, I would like to discuss a project opportunity',
+          '',
+          'For multi-line messages, just type everything in one line.'
+        ];
+      }
+      
+      const message = args.join(' ');
+      
+      // Validate message
+      if (message.trim().length < 10) {
+        return ['Error: Please provide a more detailed message (at least 10 characters)'];
+      }
+      
+      // Prepare message data
+      const timestamp = new Date().toISOString();
+      const messageData = {
+        message,
+        timestamp,
+        userAgent: navigator.userAgent
+      };
+      
+      try {
+        // For GitHub Pages, we'll use FormSubmit or similar service
+        // You can also use Netlify Forms, Formspree, or your own backend
+        const formData = new FormData();
+        formData.append('message', message);
+        formData.append('timestamp', timestamp);
+        formData.append('_subject', 'New message from portfolio terminal');
+        
+        // Using FormSubmit service (replace with your email)
+        const response = await fetch('https://formsubmit.co/ajax/awesome.abaildaev@yandex.kz', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: formData
+        });
+        
+        if (response.ok) {
+          return [
+            '✅ Message sent successfully!',
+            '',
+            'Thank you for reaching out. I\'ll get back to you soon via:',
+            `📧 Email: ${personalInfo.email}`,
+            `💬 Telegram: ${personalInfo.telegram}`,
+            '',
+            'For urgent matters, feel free to contact me directly.'
+          ];
+        } else {
+          throw new Error('Failed to send message');
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+        return [
+          '❌ Failed to send message.',
+          '',
+          'Please try contacting me directly:',
+          `📧 Email: ${personalInfo.email}`,
+          `💬 Telegram: ${personalInfo.telegram}`,
+          '',
+          'Or try the message command again later.'
+        ];
+      }
     }
   }
 };

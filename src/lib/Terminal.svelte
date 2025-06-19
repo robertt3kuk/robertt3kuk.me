@@ -24,7 +24,7 @@
     terminalEl.scrollTop = terminalEl.scrollHeight;
   }
   
-  function handleCommand(cmd) {
+  async function handleCommand(cmd) {
     const trimmedCmd = cmd.trim();
     const [commandName, ...args] = trimmedCmd.split(' ');
     
@@ -35,9 +35,14 @@
     }
     
     if (commands[commandName]) {
-      const output = commands[commandName].execute(args, { setHistory });
-      if (output) {
-        history = [...history, ...output.map(line => ({ type: 'output', content: line }))];
+      try {
+        const output = await commands[commandName].execute(args, { setHistory });
+        if (output) {
+          history = [...history, ...output.map(line => ({ type: 'output', content: line }))];
+        }
+      } catch (error) {
+        console.error('Command error:', error);
+        history = [...history, { type: 'error', content: 'Error executing command. Please try again.' }];
       }
     } else if (trimmedCmd) {
       history = [...history, { type: 'error', content: `Command not found: ${commandName}. Type "help" for available commands.` }];
