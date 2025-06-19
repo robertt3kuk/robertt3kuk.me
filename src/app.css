@@ -10,8 +10,6 @@
   --terminal-info: #89dceb;
   --terminal-selection: #45475a;
   --terminal-cursor: #f5e0dc;
-  --scrollbar-bg: #313244;
-  --scrollbar-thumb: #585b70;
 }
 
 [data-theme="light"] {
@@ -26,27 +24,24 @@
   --terminal-info: #04a5e5;
   --terminal-selection: #ccd0da;
   --terminal-cursor: #dc8a78;
-  --scrollbar-bg: #dce0e8;
-  --scrollbar-thumb: #9ca0b0;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
-  background: var(--terminal-bg);
-}
-
-#app {
-  width: 100vw;
+.app-container {
+  width: 100%;
   height: 100vh;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e1e2e 0%, #313244 100%);
+  padding: 2rem;
+}
+
+[data-theme="light"] .app-container {
+  background: linear-gradient(135deg, #e6e9ef 0%, #ccd0da 100%);
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
 }

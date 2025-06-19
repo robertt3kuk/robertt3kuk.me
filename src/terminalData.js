@@ -196,7 +196,6 @@ export const commands = {
           expOutput.push(`  • ${highlight}`);
         });
         
-        // Handle subProjects if they exist (for Gexabyte)
         if (job.subProjects) {
           job.subProjects.forEach(project => {
             expOutput.push('');
@@ -271,14 +270,15 @@ export const commands = {
   
   theme: {
     description: 'Change terminal theme',
-    execute: (args) => {
-      const theme = args[0];
-      if (!theme || !['light', 'dark'].includes(theme)) {
+    execute: (args, { theme, setTheme }) => {
+      const newTheme = args[0];
+      if (!newTheme || !['light', 'dark'].includes(newTheme)) {
         return ['Usage: theme [light|dark]'];
       }
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('terminal-theme', theme);
-      return [`Theme changed to ${theme} mode`];
+      setTheme(newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('terminal-theme', newTheme);
+      return [`Theme changed to ${newTheme} mode`];
     }
   },
   
@@ -361,7 +361,7 @@ export const commands = {
   
   message: {
     description: 'Send a message to me',
-    execute: async (args, { addToHistory, currentInput }) => {
+    execute: async (args) => {
       if (args.length === 0) {
         return [
           'Usage: message [your message here]',
@@ -374,28 +374,18 @@ export const commands = {
       
       const message = args.join(' ');
       
-      // Validate message
       if (message.trim().length < 10) {
         return ['Error: Please provide a more detailed message (at least 10 characters)'];
       }
       
-      // Prepare message data
       const timestamp = new Date().toISOString();
-      const messageData = {
-        message,
-        timestamp,
-        userAgent: navigator.userAgent
-      };
       
       try {
-        // For GitHub Pages, we'll use FormSubmit or similar service
-        // You can also use Netlify Forms, Formspree, or your own backend
         const formData = new FormData();
         formData.append('message', message);
         formData.append('timestamp', timestamp);
         formData.append('_subject', 'New message from portfolio terminal');
         
-        // Using FormSubmit service (replace with your email)
         const response = await fetch('https://formsubmit.co/ajax/awesome.abaildaev@yandex.kz', {
           method: 'POST',
           headers: {
@@ -432,9 +422,3 @@ export const commands = {
     }
   }
 };
-
-// Load theme from localStorage
-if (typeof window !== 'undefined') {
-  const savedTheme = localStorage.getItem('terminal-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-}
