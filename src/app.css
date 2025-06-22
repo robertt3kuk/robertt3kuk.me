@@ -1,64 +1,13 @@
-:root {
-  /* Default to cyberpunk dark */
-  --terminal-bg: #0a0e1a;
-  --terminal-fg: #00ffcc;
-  --terminal-border: #1a2332;
-  --terminal-header: #0d1117;
-  --terminal-prompt: #00ffcc;
-  --terminal-error: #ff5f57;
-  --terminal-text: #8b92a8;
-  --terminal-accent: #00ffcc;
-  --terminal-glow: rgba(0, 255, 255, 0.5);
+body {
+  margin: 0;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'JetBrains Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0a0a0a;
+  color: #e5e5e5;
+  overflow-x: hidden;
 }
 
 * {
-  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.app-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: 
-    radial-gradient(ellipse at top left, rgba(var(--terminal-accent-rgb), 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(var(--terminal-accent-rgb), 0.1) 0%, transparent 50%),
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.app-container::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%);
-  animation: rotate 20s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-[data-theme="light"] .app-container {
-  background: 
-    radial-gradient(ellipse at top left, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(var(--terminal-accent-rgb), 0.05) 0%, transparent 50%),
-    linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
-}
-
-@media (max-width: 768px) {
-  .app-container {
-    padding: 1rem;
-  }
+  box-sizing: border-box;
 }

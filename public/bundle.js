@@ -1,8 +1,1636 @@
-"use strict";(()=>{var w={context:void 0,registry:void 0,effects:void 0,done:!1,getContextId(){return nt(this.context.count)},getNextContextId(){return nt(this.context.count++)}};function nt(e){let t=String(e),n=t.length-1;return w.context.id+(n?String.fromCharCode(96+n):"")+t}function Fe(e){w.context=e}function qt(){return{...w.context,id:w.getNextContextId(),count:0}}var Kt=!1,Wt=(e,t)=>e===t,Sn=Symbol("solid-proxy");var Yt=Symbol("solid-track"),$n=Symbol("solid-dev-component"),Se={equals:Wt},it=null,lt=dt,N=1,be=2,ct={owned:null,cleanups:null,context:null,owner:null};var b=null,a=null,we=null,ae=null,x=null,S=null,A=null,Ce=0;function ge(e,t){let n=x,i=b,r=e.length===0,s=t===void 0?i:t,c=r?ct:{owned:null,cleanups:null,context:s?s.context:null,owner:s},o=r?e:()=>e(()=>G(()=>W(c)));b=c,x=null;try{return U(o,!0)}finally{x=n,b=i}}function v(e,t){t=t?Object.assign({},Se,t):Se;let n={value:e,observers:null,observerSlots:null,comparator:t.equals||void 0},i=r=>(typeof r=="function"&&(a&&a.running&&a.sources.has(n)?r=r(n.tValue):r=r(n.value)),ut(n,r));return[ft.bind(n),i]}function B(e,t,n){let i=Be(e,t,!1,N);we&&a&&a.running?S.push(i):xe(i)}function Te(e,t,n){lt=en;let i=Be(e,t,!1,N),r=Re&&Xt(Re);r&&(i.suspense=r),(!n||!n.render)&&(i.user=!0),A?A.push(i):xe(i)}function Ge(e,t,n){n=n?Object.assign({},Se,n):Se;let i=Be(e,t,!0,0);return i.observers=null,i.observerSlots=null,i.comparator=n.equals||void 0,we&&a&&a.running?(i.tState=N,S.push(i)):xe(i),ft.bind(i)}function G(e){if(!ae&&x===null)return e();let t=x;x=null;try{return ae?ae.untrack(e):e()}finally{x=t}}function Ee(e){Te(()=>G(e))}function le(e){return b===null||(b.cleanups===null?b.cleanups=[e]:b.cleanups.push(e)),e}function Qt(e){if(a&&a.running)return e(),a.done;let t=x,n=b;return Promise.resolve().then(()=>{x=t,b=n;let i;return(we||Re)&&(i=a||(a={sources:new Set,effects:[],promises:new Set,disposed:new Set,queue:new Set,running:!0}),i.done||(i.done=new Promise(r=>i.resolve=r)),i.running=!0),U(e,!1),x=b=null,i?i.done:void 0})}var[Cn,rt]=v(!1);function Xt(e){let t;return b&&b.context&&(t=b.context[e.id])!==void 0?t:e.defaultValue}var Re;function ft(){let e=a&&a.running;if(this.sources&&(e?this.tState:this.state))if((e?this.tState:this.state)===N)xe(this);else{let t=S;S=null,U(()=>$e(this),!1),S=t}if(x){let t=this.observers?this.observers.length:0;x.sources?(x.sources.push(this),x.sourceSlots.push(t)):(x.sources=[this],x.sourceSlots=[t]),this.observers?(this.observers.push(x),this.observerSlots.push(x.sources.length-1)):(this.observers=[x],this.observerSlots=[x.sources.length-1])}return e&&a.sources.has(this)?this.tValue:this.value}function ut(e,t,n){let i=a&&a.running&&a.sources.has(e)?e.tValue:e.value;if(!e.comparator||!e.comparator(i,t)){if(a){let r=a.running;(r||!n&&a.sources.has(e))&&(a.sources.add(e),e.tValue=t),r||(e.value=t)}else e.value=t;e.observers&&e.observers.length&&U(()=>{for(let r=0;r<e.observers.length;r+=1){let s=e.observers[r],c=a&&a.running;c&&a.disposed.has(s)||((c?!s.tState:!s.state)&&(s.pure?S.push(s):A.push(s),s.observers&&pt(s)),c?s.tState=N:s.state=N)}if(S.length>1e6)throw S=[],new Error},!1)}return t}function xe(e){if(!e.fn)return;W(e);let t=Ce;st(e,a&&a.running&&a.sources.has(e)?e.tValue:e.value,t),a&&!a.running&&a.sources.has(e)&&queueMicrotask(()=>{U(()=>{a&&(a.running=!0),x=b=e,st(e,e.tValue,t),x=b=null},!1)})}function st(e,t,n){let i,r=b,s=x;x=b=e;try{i=e.fn(t)}catch(c){return e.pure&&(a&&a.running?(e.tState=N,e.tOwned&&e.tOwned.forEach(W),e.tOwned=void 0):(e.state=N,e.owned&&e.owned.forEach(W),e.owned=null)),e.updatedAt=n+1,He(c)}finally{x=s,b=r}(!e.updatedAt||e.updatedAt<=n)&&(e.updatedAt!=null&&"observers"in e?ut(e,i,!0):a&&a.running&&e.pure?(a.sources.add(e),e.tValue=i):e.value=i,e.updatedAt=n)}function Be(e,t,n,i=N,r){let s={fn:e,state:i,updatedAt:null,owned:null,sources:null,sourceSlots:null,cleanups:null,value:t,owner:b,context:b?b.context:null,pure:n};if(a&&a.running&&(s.state=0,s.tState=i),b===null||b!==ct&&(a&&a.running&&b.pure?b.tOwned?b.tOwned.push(s):b.tOwned=[s]:b.owned?b.owned.push(s):b.owned=[s]),ae&&s.fn){let[c,o]=v(void 0,{equals:!1}),l=ae.factory(s.fn,o);le(()=>l.dispose());let h=()=>Qt(o).then(()=>g.dispose()),g=ae.factory(s.fn,h);s.fn=u=>(c(),a&&a.running?g.track(u):l.track(u))}return s}function ye(e){let t=a&&a.running;if((t?e.tState:e.state)===0)return;if((t?e.tState:e.state)===be)return $e(e);if(e.suspense&&G(e.suspense.inFallback))return e.suspense.effects.push(e);let n=[e];for(;(e=e.owner)&&(!e.updatedAt||e.updatedAt<Ce);){if(t&&a.disposed.has(e))return;(t?e.tState:e.state)&&n.push(e)}for(let i=n.length-1;i>=0;i--){if(e=n[i],t){let r=e,s=n[i+1];for(;(r=r.owner)&&r!==s;)if(a.disposed.has(r))return}if((t?e.tState:e.state)===N)xe(e);else if((t?e.tState:e.state)===be){let r=S;S=null,U(()=>$e(e,n[0]),!1),S=r}}}function U(e,t){if(S)return e();let n=!1;t||(S=[]),A?n=!0:A=[],Ce++;try{let i=e();return Jt(n),i}catch(i){n||(A=null),S=null,He(i)}}function Jt(e){if(S&&(we&&a&&a.running?Zt(S):dt(S),S=null),e)return;let t;if(a){if(!a.promises.size&&!a.queue.size){let i=a.sources,r=a.disposed;A.push.apply(A,a.effects),t=a.resolve;for(let s of A)"tState"in s&&(s.state=s.tState),delete s.tState;a=null,U(()=>{for(let s of r)W(s);for(let s of i){if(s.value=s.tValue,s.owned)for(let c=0,o=s.owned.length;c<o;c++)W(s.owned[c]);s.tOwned&&(s.owned=s.tOwned),delete s.tValue,delete s.tOwned,s.tState=0}rt(!1)},!1)}else if(a.running){a.running=!1,a.effects.push.apply(a.effects,A),A=null,rt(!0);return}}let n=A;A=null,n.length&&U(()=>lt(n),!1),t&&t()}function dt(e){for(let t=0;t<e.length;t++)ye(e[t])}function Zt(e){for(let t=0;t<e.length;t++){let n=e[t],i=a.queue;i.has(n)||(i.add(n),we(()=>{i.delete(n),U(()=>{a.running=!0,ye(n)},!1),a&&(a.running=!1)}))}}function en(e){let t,n=0;for(t=0;t<e.length;t++){let i=e[t];i.user?e[n++]=i:ye(i)}if(w.context){if(w.count){w.effects||(w.effects=[]),w.effects.push(...e.slice(0,n));return}Fe()}for(w.effects&&(w.done||!w.count)&&(e=[...w.effects,...e],n+=w.effects.length,delete w.effects),t=0;t<n;t++)ye(e[t])}function $e(e,t){let n=a&&a.running;n?e.tState=0:e.state=0;for(let i=0;i<e.sources.length;i+=1){let r=e.sources[i];if(r.sources){let s=n?r.tState:r.state;s===N?r!==t&&(!r.updatedAt||r.updatedAt<Ce)&&ye(r):s===be&&$e(r,t)}}}function pt(e){let t=a&&a.running;for(let n=0;n<e.observers.length;n+=1){let i=e.observers[n];(t?!i.tState:!i.state)&&(t?i.tState=be:i.state=be,i.pure?S.push(i):A.push(i),i.observers&&pt(i))}}function W(e){let t;if(e.sources)for(;e.sources.length;){let n=e.sources.pop(),i=e.sourceSlots.pop(),r=n.observers;if(r&&r.length){let s=r.pop(),c=n.observerSlots.pop();i<r.length&&(s.sourceSlots[c]=i,r[i]=s,n.observerSlots[i]=c)}}if(e.tOwned){for(t=e.tOwned.length-1;t>=0;t--)W(e.tOwned[t]);delete e.tOwned}if(a&&a.running&&e.pure)mt(e,!0);else if(e.owned){for(t=e.owned.length-1;t>=0;t--)W(e.owned[t]);e.owned=null}if(e.cleanups){for(t=e.cleanups.length-1;t>=0;t--)e.cleanups[t]();e.cleanups=null}a&&a.running?e.tState=0:e.state=0}function mt(e,t){if(t||(e.tState=0,a.disposed.add(e)),e.owned)for(let n=0;n<e.owned.length;n++)mt(e.owned[n])}function tn(e){return e instanceof Error?e:new Error(typeof e=="string"?e:"Unknown error",{cause:e})}function ot(e,t,n){try{for(let i of t)i(e)}catch(i){He(i,n&&n.owner||null)}}function He(e,t=b){let n=it&&t&&t.context&&t.context[it],i=tn(e);if(!n)throw i;A?A.push({fn(){ot(i,n,t)},state:N}):ot(i,n,t)}var nn=Symbol("fallback");function at(e){for(let t=0;t<e.length;t++)e[t]()}function rn(e,t,n={}){let i=[],r=[],s=[],c=0,o=t.length>1?[]:null;return le(()=>at(s)),()=>{let l=e()||[],h=l.length,g,u;return l[Yt],G(()=>{let M,L,O,ne,T,E,_,j,I;if(h===0)c!==0&&(at(s),s=[],i=[],r=[],c=0,o&&(o=[])),n.fallback&&(i=[nn],r[0]=ge(Me=>(s[0]=Me,n.fallback())),c=1);else if(c===0){for(r=new Array(h),u=0;u<h;u++)i[u]=l[u],r[u]=ge(R);c=h}else{for(O=new Array(h),ne=new Array(h),o&&(T=new Array(h)),E=0,_=Math.min(c,h);E<_&&i[E]===l[E];E++);for(_=c-1,j=h-1;_>=E&&j>=E&&i[_]===l[j];_--,j--)O[j]=r[_],ne[j]=s[_],o&&(T[j]=o[_]);for(M=new Map,L=new Array(j+1),u=j;u>=E;u--)I=l[u],g=M.get(I),L[u]=g===void 0?-1:g,M.set(I,u);for(g=E;g<=_;g++)I=i[g],u=M.get(I),u!==void 0&&u!==-1?(O[u]=r[g],ne[u]=s[g],o&&(T[u]=o[g]),u=L[u],M.set(I,u)):s[g]();for(u=E;u<h;u++)u in O?(r[u]=O[u],s[u]=ne[u],o&&(o[u]=T[u],o[u](u))):r[u]=ge(R);r=r.slice(0,c=h),i=l.slice(0)}return r});function R(M){if(s[u]=M,o){let[L,O]=v(u);return o[u]=O,t(l[u],L)}return t(l[u])}}}var sn=!1;function Y(e,t){if(sn&&w.context){let n=w.context;Fe(qt());let i=G(()=>e(t||{}));return Fe(n),i}return G(()=>e(t||{}))}function Pe(e){let t="fallback"in e&&{fallback:()=>e.fallback};return Ge(rn(()=>e.each,e.children,t||void 0))}var an=["allowfullscreen","async","autofocus","autoplay","checked","controls","default","disabled","formnovalidate","hidden","indeterminate","inert","ismap","loop","multiple","muted","nomodule","novalidate","open","playsinline","readonly","required","reversed","seamless","selected"],Rn=new Set(["className","value","readOnly","noValidate","formNoValidate","isMap","noModule","playsInline",...an]);var ke=e=>Ge(()=>e());function ln(e,t,n){let i=n.length,r=t.length,s=i,c=0,o=0,l=t[r-1].nextSibling,h=null;for(;c<r||o<s;){if(t[c]===n[o]){c++,o++;continue}for(;t[r-1]===n[s-1];)r--,s--;if(r===c){let g=s<i?o?n[o-1].nextSibling:n[s-o]:l;for(;o<s;)e.insertBefore(n[o++],g)}else if(s===o)for(;c<r;)(!h||!h.has(t[c]))&&t[c].remove(),c++;else if(t[c]===n[s-1]&&n[o]===t[r-1]){let g=t[--r].nextSibling;e.insertBefore(n[o++],t[c++].nextSibling),e.insertBefore(n[--s],g),t[r]=n[s]}else{if(!h){h=new Map;let u=o;for(;u<s;)h.set(n[u],u++)}let g=h.get(t[c]);if(g!=null)if(o<g&&g<s){let u=c,R=1,M;for(;++u<r&&u<s&&!((M=h.get(t[u]))==null||M!==g+R);)R++;if(R>g-o){let L=t[c];for(;o<g;)e.insertBefore(n[o++],L)}else e.replaceChild(n[o++],t[c++])}else c++;else t[c++].remove()}}}var ht="_$DX_DELEGATE";function bt(e,t,n,i={}){let r;return ge(s=>{r=s,t===document?e():$(t,e(),t.firstChild?null:void 0,n)},i.owner),()=>{r(),t.textContent=""}}function Q(e,t,n,i){let r,s=()=>{let o=i?document.createElementNS("http://www.w3.org/1998/Math/MathML","template"):document.createElement("template");return o.innerHTML=e,n?o.content.firstChild.firstChild:i?o.firstChild:o.content.firstChild},c=t?()=>G(()=>document.importNode(r||(r=s()),!0)):()=>(r||(r=s())).cloneNode(!0);return c.cloneNode=c,c}function yt(e,t=window.document){let n=t[ht]||(t[ht]=new Set);for(let i=0,r=e.length;i<r;i++){let s=e[i];n.has(s)||(n.add(s),t.addEventListener(s,cn))}}function wt(e,t,n){ze(e)||(n==null?e.removeAttribute(t):e.setAttribute(t,n))}function Ve(e,t){ze(e)||(t==null?e.removeAttribute("class"):e.className=t)}function _e(e,t,n){return G(()=>e(t,n))}function $(e,t,n,i){if(n!==void 0&&!i&&(i=[]),typeof t!="function")return Ae(e,t,i,n);B(r=>Ae(e,t(),r,n),i)}function ze(e){return!!w.context&&!w.done&&(!e||e.isConnected)}function cn(e){if(w.registry&&w.events&&w.events.find(([l,h])=>h===e))return;let t=e.target,n=`$$${e.type}`,i=e.target,r=e.currentTarget,s=l=>Object.defineProperty(e,"target",{configurable:!0,value:l}),c=()=>{let l=t[n];if(l&&!t.disabled){let h=t[`${n}Data`];if(h!==void 0?l.call(t,h,e):l.call(t,e),e.cancelBubble)return}return t.host&&typeof t.host!="string"&&!t.host._$host&&t.contains(e.target)&&s(t.host),!0},o=()=>{for(;c()&&(t=t._$host||t.parentNode||t.host););};if(Object.defineProperty(e,"currentTarget",{configurable:!0,get(){return t||document}}),w.registry&&!w.done&&(w.done=_$HY.done=!0),e.composedPath){let l=e.composedPath();s(l[0]);for(let h=0;h<l.length-2&&(t=l[h],!!c());h++){if(t._$host){t=t._$host,o();break}if(t.parentNode===r)break}}else o();s(i)}function Ae(e,t,n,i,r){let s=ze(e);if(s){!n&&(n=[...e.childNodes]);let l=[];for(let h=0;h<n.length;h++){let g=n[h];g.nodeType===8&&g.data.slice(0,2)==="!$"?g.remove():l.push(g)}n=l}for(;typeof n=="function";)n=n();if(t===n)return n;let c=typeof t,o=i!==void 0;if(e=o&&n[0]&&n[0].parentNode||e,c==="string"||c==="number"){if(s||c==="number"&&(t=t.toString(),t===n))return n;if(o){let l=n[0];l&&l.nodeType===3?l.data!==t&&(l.data=t):l=document.createTextNode(t),n=ce(e,n,i,l)}else n!==""&&typeof n=="string"?n=e.firstChild.data=t:n=e.textContent=t}else if(t==null||c==="boolean"){if(s)return n;n=ce(e,n,i)}else{if(c==="function")return B(()=>{let l=t();for(;typeof l=="function";)l=l();n=Ae(e,l,n,i)}),()=>n;if(Array.isArray(t)){let l=[],h=n&&Array.isArray(n);if(Ue(l,t,n,r))return B(()=>n=Ae(e,l,n,i,!0)),()=>n;if(s){if(!l.length)return n;if(i===void 0)return n=[...e.childNodes];let g=l[0];if(g.parentNode!==e)return n;let u=[g];for(;(g=g.nextSibling)!==i;)u.push(g);return n=u}if(l.length===0){if(n=ce(e,n,i),o)return n}else h?n.length===0?gt(e,l,i):ln(e,n,l):(n&&ce(e),gt(e,l));n=l}else if(t.nodeType){if(s&&t.parentNode)return n=o?[t]:t;if(Array.isArray(n)){if(o)return n=ce(e,n,i,t);ce(e,n,null,t)}else n==null||n===""||!e.firstChild?e.appendChild(t):e.replaceChild(t,e.firstChild);n=t}}return n}function Ue(e,t,n,i){let r=!1;for(let s=0,c=t.length;s<c;s++){let o=t[s],l=n&&n[e.length],h;if(!(o==null||o===!0||o===!1))if((h=typeof o)=="object"&&o.nodeType)e.push(o);else if(Array.isArray(o))r=Ue(e,o,l)||r;else if(h==="function")if(i){for(;typeof o=="function";)o=o();r=Ue(e,Array.isArray(o)?o:[o],Array.isArray(l)?l:[l])||r}else e.push(o),r=!0;else{let g=String(o);l&&l.nodeType===3&&l.data===g?e.push(l):e.push(document.createTextNode(g))}}return r}function gt(e,t,n=null){for(let i=0,r=t.length;i<r;i++)e.insertBefore(t[i],n)}function ce(e,t,n,i){if(n===void 0)return e.textContent="";let r=i||document.createTextNode("");if(t.length){let s=!1;for(let c=t.length-1;c>=0;c--){let o=t[c];if(r!==o){let l=o.parentNode===e;!s&&!c?l?e.replaceChild(r,o):e.insertBefore(r,n):l&&o.remove()}else s=!0}}else e.insertBefore(r,n);return[r]}var Gn=Symbol();var C={name:"Bekbolat Abaildayev",username:"robertt3kuk",title:"Software Engineer",email:"awesome.abaildaev@yandex.kz",phone:"+77073137691",linkedin:"https://linkedin.com/in/robertt3kuk",github:"https://github.com/robertt3kuk",telegram:"https://t.me/biqontie",location:"Kazakhstan",summary:"Accomplished Go backend developer with over four years of experience in designing and implementing scalable systems. Proficient in MongoDB, PostgreSQL, and Kubernetes, with expertise in microservices architecture and API development using gRPC and GraphQL. Experienced in building secure internal banking systems with governmental integrations. Skilled in DevOps practices, including containerization, CI/CD pipelines, and system monitoring with tools like Grafana Loki. Passionate about writing clean, maintainable code and automating development workflows.",skills:{languages:["Go","JavaScript"],databases:["MongoDB","PostgreSQL"],technologies:["gRPC","GraphQL","Docker","Kubernetes","CI/CD","IPFS","Ethereum Go library"],cloud:["AWS","GCP","AZURE","Yandex Cloud"],tools:["Grafana Loki","MinIO","Code Generation Tooling","Linux","DevOps"]},experience:[{company:"Gexabyte",position:"Golang Backend Developer",period:"August 2024 - Present",highlights:["Developed blockchain-based backend using Ethereum Go library, integrating smart contracts on Sepolia network","Implemented decentralized image storage with IPFS via Pinata and off-chain storage with MinIO","Optimized PostgreSQL database for secure and efficient data management","Collaborated with product teams to deliver scalable technical solutions"],subProjects:[{name:"Zaman-Bank project (via RedMadRobot)",period:"November 2024 - Present",teams:[{name:"Retail Platform Team",period:"November 2024 - December 2024",highlights:["Contributed to core library of internal banking system with multiple governmental integrations","Developed microservices to support banking operations and ensure system scalability","Implemented log monitoring in Kubernetes to enhance system observability","Designed secret error case handling with numerical error identification for precise debugging"]},{name:"SME Platform Team",period:"January 2025 - Present",highlights:["Created bridge service to facilitate governmental integrations for internal banking system","Enhanced core library with reusable components for SME banking operations","Developed code generation tooling using templates to automate boilerplate code creation","Streamlined internal code management and development workflows"]}]}]},{company:"Union Strategies",position:"Golang Backend Developer",period:"February 2023 - July 2024",location:"Toronto",highlights:["Developed microservices for union management system using Go, PostgreSQL, and gRPC","Enhanced system observability with Grafana Loki for improved monitoring","Collaborated with product teams to implement feature enhancements and optimize performance"]},{company:"mvp14",position:"Golang Backend Developer",period:"February 2023 - June 2023",location:"Astana",highlights:["Developed CRM system for construction workers using Golang, PostgreSQL, and GraphQL","Implemented user management, task management, and QR code scanning functionality","Enabled workers to scan QR codes for task location verification and capture completion proof","Implemented subtask management for complex tasks and employee performance monitoring"]},{company:"BilimX",position:"Golang Backend Developer",period:"November 2022 - February 2023",location:"Pavlodar",highlights:["Created edtech platform for schools using Golang and PostgreSQL","Provided accessible 3D models, study plans, and detailed descriptions for subjects like anatomy and physics","Implemented secure session management, allowing only one session per user within school territory","Developed licensing system to prevent unauthorized access"]},{company:"WeLoveFlutterFlow",position:"Golang Backend Developer",period:"June 2021 - October 2022",location:"Astana",highlights:["Built CRM platform using Golang and PostgreSQL","Developed RESTful API, task tracking, and role-based visibility features","Managed access for developers, managers, and DevOps engineers","Implemented customizable layers for task and project visibility","Created efficient project management and collaboration solution"]}],projects:[{name:"Distributed Task Queue",description:"High-performance distributed task queue system built with Go",tech:["Go","Redis","gRPC","Docker"],url:"https://github.com/robertt3kuk/task-queue"},{name:"Microservices Boilerplate",description:"Production-ready microservices template with Go",tech:["Go","Kubernetes","Prometheus","Jaeger"],url:"https://github.com/robertt3kuk/go-microservices"},{name:"Real-time Chat System",description:"Scalable real-time chat application with WebSocket",tech:["Go","WebSocket","MongoDB","React"],url:"https://github.com/robertt3kuk/chat-system"}]},V={help:{description:"Show available commands",execute:()=>["Available commands:","","\u{1F4C1} File System:","  ls             - List files in current directory","  cd [path]      - Change directory","  pwd            - Print working directory","  cat [file]     - Display file content","","\u{1F464} Personal:","  about          - Display personal information","  skills         - List technical skills","  experience     - Show work experience","  projects       - Display GitHub projects","  contact        - Show contact information","  download       - Download CV as PDF","  message        - Send me a message","","\u{1F5A5}\uFE0F System:","  help           - Show this help message","  clear          - Clear terminal (Ctrl+L)","  theme          - Change color scheme","  whoami         - Display current user","  date           - Show current date and time","  echo [text]    - Echo text back","  neofetch       - Display system information","  top            - Display system processes","","\u{1F310} Network:","  ssh [host]     - Connect to remote host (demo)","  ping [host]    - Ping a host","","\u{1F3AE} Interface:","  gui [panel]    - Toggle UI panels (files/monitor/network)","  matrix         - Toggle matrix rain effect","","\u2328\uFE0F Shortcuts:","  Tab            - Auto-complete commands","  \u2191/\u2193            - Navigate command history","  Ctrl+C         - Cancel current command","  Ctrl+L         - Clear screen"]},about:{description:"Display personal information",execute:()=>[`Name: ${C.name} (@${C.username})`,`Title: ${C.title}`,`Location: ${C.location}`,"","Summary:",C.summary,"",'Type "skills" to see technical skills or "experience" for work history.']},skills:{description:"List technical skills",execute:()=>{let e=["Technical Skills:",""];return Object.entries(C.skills).forEach(([t,n])=>{e.push(`${t.charAt(0).toUpperCase()+t.slice(1)}:`),e.push(`  ${n.join(", ")}`),e.push("")}),e}},experience:{description:"Show work experience",execute:()=>{let e=["Work Experience:",""];return C.experience.forEach(t=>{e.push(`${t.company}${t.location?", "+t.location:""} | ${t.position}`),e.push(`${t.period}`),t.highlights.forEach(n=>{e.push(`  \u2022 ${n}`)}),t.subProjects&&t.subProjects.forEach(n=>{e.push(""),e.push(`  ${n.name} (${n.period}):`),n.teams.forEach(i=>{e.push(`    ${i.name} (${i.period}):`),i.highlights.forEach(r=>{e.push(`      \u2022 ${r}`)})})}),e.push("")}),e}},projects:{description:"Display GitHub projects",execute:()=>{let e=["GitHub Projects:",""];return C.projects.forEach(t=>{e.push(`\u{1F4C1} ${t.name}`),e.push(`   ${t.description}`),e.push(`   Tech: ${t.tech.join(", ")}`),e.push(`   URL: ${t.url}`),e.push("")}),e}},contact:{description:"Show contact information",execute:()=>["Contact Information:","",`\u{1F4E7} Email: ${C.email}`,`\u{1F4F1} Phone: ${C.phone}`,`\u{1F4BC} LinkedIn: ${C.linkedin}`,`\u{1F419} GitHub: ${C.github}`,`\u{1F4AC} Telegram: ${C.telegram}`,"","Feel free to reach out for opportunities or collaborations!"]},download:{description:"Download CV as PDF",execute:()=>{let e=document.createElement("a");return e.href="/BekbolatAbaildayev_CV.pdf",e.download="BekbolatAbaildayev_CV.pdf",document.body.appendChild(e),e.click(),document.body.removeChild(e),["Downloading CV...","File: BekbolatAbaildayev_CV.pdf"]}},clear:{description:"Clear terminal",execute:(e,{setHistory:t})=>(t([]),null)},theme:{description:"Change terminal theme",execute:(e,{theme:t,setTheme:n})=>{let i=e[0];return!i||!["light","dark"].includes(i)?["Usage: theme [light|dark]"]:(n(i),document.documentElement.setAttribute("data-theme",i),localStorage.setItem("terminal-theme",i),[`Theme changed to ${i} mode`])}},ls:{description:"List available sections",execute:()=>["drwxr-xr-x  2 robertt3kuk  staff   64B  about/","drwxr-xr-x  2 robertt3kuk  staff   64B  skills/","drwxr-xr-x  2 robertt3kuk  staff   64B  experience/","drwxr-xr-x  2 robertt3kuk  staff   64B  projects/","drwxr-xr-x  2 robertt3kuk  staff   64B  contact/","-rw-r--r--  1 robertt3kuk  staff  2.1M  BekbolatAbaildayev_CV.pdf","",'Use "cat [section]" to view section content']},cat:{description:"Display section content",execute:e=>{let t=e[0];if(!t)return["Usage: cat [section]","Available sections: about, skills, experience, projects, contact"];let n={about:V.about,skills:V.skills,experience:V.experience,projects:V.projects,contact:V.contact};return n[t]?n[t].execute():[`cat: ${t}: No such file or directory`]}},whoami:{description:"Display current user",execute:()=>["guest@robertt3kuk.me"]},date:{description:"Show current date and time",execute:()=>[new Date().toString()]},echo:{description:"Echo text back",execute:e=>[e.join(" ")]},neofetch:{description:"Display system information",execute:()=>["       _._     ","    .'   `.    robertt3kuk@portfolio","   /  .-.  \\   ---------------------","  |  /   \\  |  OS: Terminal OS v1.0.0","  | |\\_.  /| |  Host: robertt3kuk.me","  |\\|  | /|/|  Kernel: 5.15.0-terminal","  |  `---'  |  Uptime: since 2021","  |         |  Shell: portfolio-sh","  |         |  Terminal: Web Terminal","  |         |  CPU: Go @ 3.2GHz","  |         |  Memory: \u221E","  |         |  ","  `---------'  "]},message:{description:"Send a message to me",execute:async e=>{if(e.length===0)return["Usage: message [your message here]","","Example: message Hello, I would like to discuss a project opportunity","","For multi-line messages, just type everything in one line."];let t=e.join(" ");if(t.trim().length<10)return["Error: Please provide a more detailed message (at least 10 characters)"];let n=new Date().toISOString();try{let i=new FormData;if(i.append("message",t),i.append("timestamp",n),i.append("_subject","New message from portfolio terminal"),(await fetch("https://formsubmit.co/ajax/awesome.abaildaev@yandex.kz",{method:"POST",headers:{Accept:"application/json"},body:i})).ok)return["\u2705 Message sent successfully!","","Thank you for reaching out. I'll get back to you soon via:",`\u{1F4E7} Email: ${C.email}`,`\u{1F4AC} Telegram: ${C.telegram}`,"","For urgent matters, feel free to contact me directly."];throw new Error("Failed to send message")}catch(i){return console.error("Error sending message:",i),["\u274C Failed to send message.","","Please try contacting me directly:",`\u{1F4E7} Email: ${C.email}`,`\u{1F4AC} Telegram: ${C.telegram}`,"","Or try the message command again later."]}}}};var fn=Q('<div class=advanced-terminal-container><div class=terminal-grid><div class="panel main-terminal"><div class=terminal-header><div class=terminal-tabs><div class="tab active"><span class=tab-title>Terminal</span><span class=tab-close>\xD7</span></div><div class=tab><span class=tab-title>+</span></div></div><div class=terminal-controls><span class="control minimize"></span><span class="control maximize"></span><span class="control close"></span></div></div><div class=terminal-content><div class=input-line><span class=prompt>[<!>]$ </span><input type=text class=terminal-input autocomplete=off autocorrect=off autocapitalize=off><span class=cursor-block></span></div></div></div></div><div class=status-bar><div class=status-left><span class=status-item>\u{1F464} guest@robertt3kuk</span><span class=status-item>\u{1F4C1} </span></div><div class=status-center><span class="status-item pulse">\u25CF REC</span></div><div class=status-right><span class=status-item>\u{1F50B} 100%</span><span class=status-item>\u{1F4F6} <!>ms</span><span class=status-item>\u{1F550} '),un=Q("<canvas class=matrix-rain>"),dn=Q('<div class="panel file-system"><div class=panel-header><span class=panel-title>\u{1F4C1} File System</span><button class=panel-close>\xD7</button></div><div class=panel-content><div class=path-bar></div><div class=file-tree>'),pn=Q("<div class=file-item><span></span><span class=file-name>"),mn=Q('<div class="panel system-monitor"><div class=panel-header><span class=panel-title>\u{1F4CA} System Monitor</span><button class=panel-close>\xD7</button></div><div class=panel-content><div class=monitor-item><span class=monitor-label>CPU Usage</span><div class=progress-bar><div class="progress-fill cpu"></div></div><span class=monitor-value>%</span></div><div class=monitor-item><span class=monitor-label>Memory</span><div class=progress-bar><div class="progress-fill memory"></div></div><span class=monitor-value>%</span></div><div class=monitor-item><span class=monitor-label>Uptime</span><span class=monitor-value>42d 13h 37m</span></div><div class=monitor-item><span class=monitor-label>Load Avg</span><span class=monitor-value>0.42 0.69 1.33'),hn=Q("<div>"),gn=Q('<div class="panel network-status"><div class=panel-header><span class=panel-title>\u{1F310} Network Status</span><button class=panel-close>\xD7</button></div><div class=panel-content><div class=network-item><span class=network-label>Status</span><span class="network-value online">\u25CF Online</span></div><div class=network-item><span class=network-label>IPv4</span><span class=network-value>192.168.1.42</span></div><div class=network-item><span class=network-label>Gateway</span><span class=network-value>192.168.1.1</span></div><div class=network-item><span class=network-label>DNS</span><span class=network-value>8.8.8.8</span></div><div class=network-item><span class=network-label>Latency</span><span class=network-value>ms</span></div><div class=network-graph><canvas class=latency-graph>'),bn=`
-\u2588\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2557  \u2588\u2588\u2557\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2557  \u2588\u2588\u2557
-\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255D\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u255A\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255D\u255A\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255D\u255A\u2550\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2551 \u2588\u2588\u2554\u255D\u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2551 \u2588\u2588\u2554\u255D
-\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D   \u2588\u2588\u2551      \u2588\u2588\u2551    \u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2588\u2588\u2588\u2554\u255D \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2554\u255D 
-\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u255D  \u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557   \u2588\u2588\u2551      \u2588\u2588\u2551    \u255A\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2588\u2588\u2557 \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2588\u2588\u2557 
-\u2588\u2588\u2551  \u2588\u2588\u2551\u255A\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2551  \u2588\u2588\u2551   \u2588\u2588\u2551      \u2588\u2588\u2551   \u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2551  \u2588\u2588\u2557\u255A\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2551  \u2588\u2588\u2557
-\u255A\u2550\u255D  \u255A\u2550\u255D \u255A\u2550\u2550\u2550\u2550\u2550\u255D \u255A\u2550\u2550\u2550\u2550\u2550\u255D \u255A\u2550\u2550\u2550\u2550\u2550\u2550\u255D\u255A\u2550\u255D  \u255A\u2550\u255D   \u255A\u2550\u255D      \u255A\u2550\u255D   \u255A\u2550\u2550\u2550\u2550\u2550\u255D \u255A\u2550\u255D  \u255A\u2550\u255D \u255A\u2550\u2550\u2550\u2550\u2550\u255D \u255A\u2550\u255D  \u255A\u2550\u255D
-`;function yn(e){let[t,n]=v([]),[i,r]=v(""),[s,c]=v([]),[o,l]=v(-1),[h,g]=v(!0),[u,R]=v(!0),[M,L]=v(!0),[O,ne]=v(!1),[T,E]=v("/home/guest"),[_,j]=v(12),[I,Me]=v(47),[Ie,vt]=v(23),[St,$t]=v(new Date),Ct={"/":{home:{guest:{about:{type:"file",content:"about.txt"},skills:{type:"file",content:"skills.json"},experience:{type:"file",content:"experience.md"},projects:{type:"dir",children:{"task-queue":{type:"file",content:"README.md"},microservices:{type:"file",content:"README.md"},"chat-system":{type:"file",content:"README.md"}}},contact:{type:"file",content:"contact.vcf"},cv:{type:"file",content:"BekbolatAbaildayev_CV.pdf"}}},system:{config:{type:"file",content:"terminal.conf"},logs:{type:"file",content:"system.log"}}}},fe,ie,re;Ee(()=>{Tt(),ie&&ie.focus();let f=setInterval(()=>$t(new Date),1e3),d=setInterval(()=>{j(Math.min(100,Math.max(0,_()+(Math.random()-.5)*10))),Me(Math.min(100,Math.max(0,I()+(Math.random()-.5)*5))),vt(Math.min(999,Math.max(1,Ie()+(Math.random()-.5)*20)))},2e3);le(()=>{clearInterval(f),clearInterval(d)})});let Tt=async()=>{await m("SYSTEM INITIALIZATION SEQUENCE STARTED..."),await X(500),await m("[OK] Loading kernel modules..."),await X(300),await m("[OK] Mounting file systems..."),await X(300),await m("[OK] Starting network services..."),await X(300),await m("[OK] Initializing user interface..."),await X(500),await m(""),await m(bn,!1),await m(""),await m("Welcome to ROBERTT3KUK Terminal v3.0"),await m(`System Time: ${new Date().toLocaleString()}`),await m(""),await m('Type "help" for available commands'),await m('Type "gui" to toggle UI panels'),await m('Type "matrix" for a surprise'),await m("")},m=(f,d=!0)=>new Promise(p=>{n([...t(),{type:"output",content:f,animated:d,timestamp:new Date}]),setTimeout(()=>{Et(),p()},d?50:0)}),X=f=>new Promise(d=>setTimeout(d,f)),Et=()=>{fe&&(fe.scrollTop=fe.scrollHeight)},Pt=f=>{if(f===".."){let d=T().split("/").filter(p=>p);d.pop(),E("/"+d.join("/")||"/")}else f.startsWith("/")?E(f):E(T()+"/"+f)},De=f=>{let d=f.split("/").filter(y=>y),p=Ct["/"];for(let y of d)if(p[y]&&p[y].type==="dir")p=p[y].children||p[y];else if(p[y])p=p[y];else return null;return p},At=async f=>{let d=f.trim(),[p,...y]=d.split(" ");if(n([...t(),{type:"command",content:`[${T()}]$ ${d}`,timestamp:new Date}]),d!==""){switch(p){case"ls":_t();break;case"cd":Mt(y[0]);break;case"pwd":await m(T());break;case"gui":It(y[0]);break;case"matrix":ne(!O()),await m(O()?"Matrix rain activated":"Matrix rain deactivated");break;case"ssh":await Dt(y);break;case"ping":await Ot(y[0]);break;case"top":await Nt();break;case"neofetch":await Lt();break;default:if(V[p])try{let k=await V[p].execute(y,{setHistory:H=>n(H),theme:e.theme,setTheme:e.setTheme});if(k)for(let H of k)await m(H)}catch(k){await m(`Error: ${k.message}`,!1)}else await m(`Command not found: ${p}. Type "help" for available commands.`)}c([...s(),d]),l(-1)}},_t=async()=>{let f=De(T());if(!f||typeof f!="object"){await m("Not a directory");return}let d=Object.entries(f);for(let[p,y]of d){let k=y.type==="dir",H=k?"drwxr-xr-x":"-rw-r--r--",z=k?"4096":Math.floor(Math.random()*1e4)+1e3;await m(`${H}  guest  guest  ${z}  ${p}${k?"/":""}`)}},Mt=async f=>{if(!f){E("/home/guest");return}let d=T();Pt(f),De(T())||(E(d),await m(`cd: ${f}: No such file or directory`))},It=async f=>{if(!f)g(!h()),R(!u()),L(!M()),await m("Toggled all GUI panels");else{switch(f){case"files":g(!h());break;case"monitor":R(!u());break;case"network":L(!M());break}await m(`Toggled ${f} panel`)}},Dt=async f=>{if(!f[0]){await m("Usage: ssh user@host");return}await m(`Connecting to ${f[0]}...`),await X(1e3),await m("Permission denied (publickey,password)."),await m("Note: This is a portfolio site. For real SSH access, use the contact command.")},Ot=async f=>{if(!f){await m("Usage: ping hostname");return}await m(`PING ${f} (${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}): 56 data bytes`);for(let d=0;d<4;d++){await X(1e3);let p=Math.floor(Math.random()*50)+10;await m(`64 bytes from ${f}: icmp_seq=${d} ttl=64 time=${p}.${Math.floor(Math.random()*999)} ms`)}await m(`--- ${f} ping statistics ---`),await m("4 packets transmitted, 4 packets received, 0.0% packet loss")},Nt=async()=>{await m("top - "+new Date().toLocaleTimeString()+" up 42 days, 13:37, 1 user, load average: 0.42, 0.69, 1.33"),await m("Tasks: 142 total, 1 running, 141 sleeping, 0 stopped, 0 zombie"),await m(`%Cpu(s): ${_().toFixed(1)} us, 2.3 sy, 0.0 ni, 95.7 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st`),await m(`MiB Mem: 16384.0 total, ${(16384*(100-I())/100).toFixed(1)} free, ${(16384*I()/100).toFixed(1)} used`),await m(""),await m("  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND"),await m(" 1337 guest     20   0  420.0g  69.0m  42.0m S  13.3   0.4   4:20.69 node"),await m(" 9001 guest     20   0   42.0g  13.3m   6.9m S   6.9   0.1   1:33.37 chrome"),await m("Press Ctrl+C to exit")},Lt=async()=>{let f=["       _._     ","    .'   `.    ","   /  .-.  \\   ","  |  /   \\  |  ","  | |\\_.  /| |  ","  |\\|  | /|/|  ","  |  `---'  |  ","  |         |  ","  |         |  ","  |         |  ","  |         |  ","  |         |  ","  `---------'  "],d=["robertt3kuk@portfolio","---------------------","OS: Terminal OS v3.0","Host: robertt3kuk.me","Kernel: 5.15.0-terminal","Uptime: 42 days, 13 hours, 37 minutes","Shell: zsh 5.9","Terminal: Advanced Terminal v3.0","CPU: Intel Core i9-13900K (32) @ 6.0GHz","GPU: NVIDIA RTX 4090","Memory: "+(16384*I()/100).toFixed(0)+"MiB / 16384MiB","",""];for(let p=0;p<Math.max(f.length,d.length);p++){let y=f[p]||"               ",k=d[p]||"";await m(y+"  "+k)}},jt=f=>{if(f.key==="Enter")At(i()),r("");else if(f.key==="ArrowUp"){f.preventDefault();let d=s(),p=o();if(p<d.length-1){let y=p+1;l(y),r(d[d.length-1-y])}}else if(f.key==="ArrowDown"){f.preventDefault();let d=o();if(d>0){let p=d-1;l(p),r(s()[s().length-1-p])}else d===0&&(l(-1),r(""))}else if(f.key==="Tab"){f.preventDefault();let d=i(),y=[...Object.keys(V),"ls","cd","pwd","gui","matrix","ssh","ping","top","neofetch"].filter(k=>k.startsWith(d));y.length===1&&r(y[0]+" ")}else f.ctrlKey&&f.key==="c"?(f.preventDefault(),r("")):f.ctrlKey&&f.key==="l"&&(f.preventDefault(),n([]))},Ft=()=>{ie&&ie.focus()};return Te(()=>{if(O()&&re){let f=re.getContext("2d"),d=re.width=window.innerWidth,p=re.height=window.innerHeight,y=Math.floor(d/20),k=new Array(y).fill(0),z="ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}".split(""),ve=setInterval(()=>{f.fillStyle="rgba(0, 0, 0, 0.05)",f.fillRect(0,0,d,p),f.fillStyle="#00ff00",f.font="15px monospace";for(let q=0;q<k.length;q++){let K=z[Math.floor(Math.random()*z.length)];f.fillText(K,q*20,k[q]*20),k[q]*20>p&&Math.random()>.975&&(k[q]=0),k[q]++}},35);le(()=>clearInterval(ve))}}),(()=>{var f=fn(),d=f.firstChild,p=d.firstChild,y=p.firstChild,k=y.nextSibling,H=k.firstChild,z=H.firstChild,qe=z.firstChild,ve=qe.nextSibling,q=ve.nextSibling,K=z.nextSibling,Rt=d.nextSibling,Ke=Rt.firstChild,Gt=Ke.firstChild,We=Gt.nextSibling,xn=We.firstChild,Bt=Ke.nextSibling,Ht=Bt.nextSibling,Ut=Ht.firstChild,Oe=Ut.nextSibling,Vt=Oe.firstChild,Ye=Vt.nextSibling,kn=Ye.nextSibling,Qe=Oe.nextSibling,vn=Qe.firstChild;$(f,(()=>{var D=ke(()=>!!O());return()=>D()&&(()=>{var P=un(),F=re;return typeof F=="function"?_e(F,P):re=P,P})()})(),d),$(d,(()=>{var D=ke(()=>!!h());return()=>D()&&(()=>{var P=dn(),F=P.firstChild,ue=F.firstChild,de=ue.nextSibling,pe=F.nextSibling,J=pe.firstChild,me=J.nextSibling;return de.$$click=()=>g(!1),$(J,T),$(me,Y(Pe,{get each(){return Object.entries(De(T())||{})},children:([se,Z])=>(()=>{var ee=pn(),te=ee.firstChild,oe=te.nextSibling;return $(te,()=>Z.type==="dir"?"\u{1F4C1}":"\u{1F4C4}"),$(oe,se),B(()=>Ve(te,`file-icon ${Z.type}`)),ee})()})),P})()})(),p),$(d,(()=>{var D=ke(()=>!!u());return()=>D()&&(()=>{var P=mn(),F=P.firstChild,ue=F.firstChild,de=ue.nextSibling,pe=F.nextSibling,J=pe.firstChild,me=J.firstChild,se=me.nextSibling,Z=se.firstChild,ee=se.nextSibling,te=ee.firstChild,oe=J.nextSibling,Ne=oe.firstChild,Ze=Ne.nextSibling,et=Ze.firstChild,tt=Ze.nextSibling,zt=tt.firstChild;return de.$$click=()=>R(!1),$(ee,()=>_().toFixed(1),te),$(tt,()=>I().toFixed(1),zt),B(he=>{var Le=`${_()}%`,je=`${I()}%`;return Le!==he.e&&((he.e=Le)!=null?Z.style.setProperty("width",Le):Z.style.removeProperty("width")),je!==he.t&&((he.t=je)!=null?et.style.setProperty("width",je):et.style.removeProperty("width")),he},{e:void 0,t:void 0}),P})()})(),p),p.$$click=Ft;var Xe=fe;typeof Xe=="function"?_e(Xe,p):fe=p,$(k,Y(Pe,{get each(){return t()},children:D=>(()=>{var P=hn();return $(P,()=>D.content),B(()=>Ve(P,`terminal-line ${D.type} ${D.animated?"typing":""}`)),P})()}),H),$(z,T,ve),K.$$keydown=jt,K.$$input=D=>r(D.target.value);var Je=ie;return typeof Je=="function"?_e(Je,K):ie=K,wt(K,"spellcheck",!1),$(d,(()=>{var D=ke(()=>!!M());return()=>D()&&(()=>{var P=gn(),F=P.firstChild,ue=F.firstChild,de=ue.nextSibling,pe=F.nextSibling,J=pe.firstChild,me=J.nextSibling,se=me.nextSibling,Z=se.nextSibling,ee=Z.nextSibling,te=ee.firstChild,oe=te.nextSibling,Ne=oe.firstChild;return de.$$click=()=>L(!1),$(oe,Ie,Ne),P})()})(),null),$(We,T,null),$(Oe,Ie,Ye),$(Qe,()=>St().toLocaleTimeString(),null),B(()=>K.value=i()),f})()}var xt=yn;yt(["click","input","keydown"]);function wn(){let[e,t]=v(localStorage.getItem("terminal-theme")||"dark");return Ee(()=>{document.documentElement.setAttribute("data-theme",e())}),Y(xt,{theme:e,setTheme:t})}var kt=wn;bt(()=>Y(kt,{}),document.getElementById("app"));})();
+"use strict";
+(() => {
+  // node_modules/solid-js/dist/solid.js
+  var sharedConfig = {
+    context: void 0,
+    registry: void 0,
+    effects: void 0,
+    done: false,
+    getContextId() {
+      return getContextId(this.context.count);
+    },
+    getNextContextId() {
+      return getContextId(this.context.count++);
+    }
+  };
+  function getContextId(count) {
+    const num = String(count), len = num.length - 1;
+    return sharedConfig.context.id + (len ? String.fromCharCode(96 + len) : "") + num;
+  }
+  function setHydrateContext(context) {
+    sharedConfig.context = context;
+  }
+  function nextHydrateContext() {
+    return {
+      ...sharedConfig.context,
+      id: sharedConfig.getNextContextId(),
+      count: 0
+    };
+  }
+  var IS_DEV = false;
+  var equalFn = (a, b) => a === b;
+  var $PROXY = Symbol("solid-proxy");
+  var $TRACK = Symbol("solid-track");
+  var $DEVCOMP = Symbol("solid-dev-component");
+  var signalOptions = {
+    equals: equalFn
+  };
+  var ERROR = null;
+  var runEffects = runQueue;
+  var STALE = 1;
+  var PENDING = 2;
+  var UNOWNED = {
+    owned: null,
+    cleanups: null,
+    context: null,
+    owner: null
+  };
+  var Owner = null;
+  var Transition = null;
+  var Scheduler = null;
+  var ExternalSourceConfig = null;
+  var Listener = null;
+  var Updates = null;
+  var Effects = null;
+  var ExecCount = 0;
+  function createRoot(fn, detachedOwner) {
+    const listener = Listener, owner = Owner, unowned = fn.length === 0, current = detachedOwner === void 0 ? owner : detachedOwner, root = unowned ? UNOWNED : {
+      owned: null,
+      cleanups: null,
+      context: current ? current.context : null,
+      owner: current
+    }, updateFn = unowned ? fn : () => fn(() => untrack(() => cleanNode(root)));
+    Owner = root;
+    Listener = null;
+    try {
+      return runUpdates(updateFn, true);
+    } finally {
+      Listener = listener;
+      Owner = owner;
+    }
+  }
+  function createSignal(value, options) {
+    options = options ? Object.assign({}, signalOptions, options) : signalOptions;
+    const s = {
+      value,
+      observers: null,
+      observerSlots: null,
+      comparator: options.equals || void 0
+    };
+    const setter = (value2) => {
+      if (typeof value2 === "function") {
+        if (Transition && Transition.running && Transition.sources.has(s)) value2 = value2(s.tValue);
+        else value2 = value2(s.value);
+      }
+      return writeSignal(s, value2);
+    };
+    return [readSignal.bind(s), setter];
+  }
+  function createRenderEffect(fn, value, options) {
+    const c = createComputation(fn, value, false, STALE);
+    if (Scheduler && Transition && Transition.running) Updates.push(c);
+    else updateComputation(c);
+  }
+  function createEffect(fn, value, options) {
+    runEffects = runUserEffects;
+    const c = createComputation(fn, value, false, STALE), s = SuspenseContext && useContext(SuspenseContext);
+    if (s) c.suspense = s;
+    if (!options || !options.render) c.user = true;
+    Effects ? Effects.push(c) : updateComputation(c);
+  }
+  function createMemo(fn, value, options) {
+    options = options ? Object.assign({}, signalOptions, options) : signalOptions;
+    const c = createComputation(fn, value, true, 0);
+    c.observers = null;
+    c.observerSlots = null;
+    c.comparator = options.equals || void 0;
+    if (Scheduler && Transition && Transition.running) {
+      c.tState = STALE;
+      Updates.push(c);
+    } else updateComputation(c);
+    return readSignal.bind(c);
+  }
+  function untrack(fn) {
+    if (!ExternalSourceConfig && Listener === null) return fn();
+    const listener = Listener;
+    Listener = null;
+    try {
+      if (ExternalSourceConfig) return ExternalSourceConfig.untrack(fn);
+      return fn();
+    } finally {
+      Listener = listener;
+    }
+  }
+  function onMount(fn) {
+    createEffect(() => untrack(fn));
+  }
+  function onCleanup(fn) {
+    if (Owner === null) ;
+    else if (Owner.cleanups === null) Owner.cleanups = [fn];
+    else Owner.cleanups.push(fn);
+    return fn;
+  }
+  function startTransition(fn) {
+    if (Transition && Transition.running) {
+      fn();
+      return Transition.done;
+    }
+    const l = Listener;
+    const o = Owner;
+    return Promise.resolve().then(() => {
+      Listener = l;
+      Owner = o;
+      let t;
+      if (Scheduler || SuspenseContext) {
+        t = Transition || (Transition = {
+          sources: /* @__PURE__ */ new Set(),
+          effects: [],
+          promises: /* @__PURE__ */ new Set(),
+          disposed: /* @__PURE__ */ new Set(),
+          queue: /* @__PURE__ */ new Set(),
+          running: true
+        });
+        t.done || (t.done = new Promise((res) => t.resolve = res));
+        t.running = true;
+      }
+      runUpdates(fn, false);
+      Listener = Owner = null;
+      return t ? t.done : void 0;
+    });
+  }
+  var [transPending, setTransPending] = /* @__PURE__ */ createSignal(false);
+  function useContext(context) {
+    let value;
+    return Owner && Owner.context && (value = Owner.context[context.id]) !== void 0 ? value : context.defaultValue;
+  }
+  var SuspenseContext;
+  function readSignal() {
+    const runningTransition = Transition && Transition.running;
+    if (this.sources && (runningTransition ? this.tState : this.state)) {
+      if ((runningTransition ? this.tState : this.state) === STALE) updateComputation(this);
+      else {
+        const updates = Updates;
+        Updates = null;
+        runUpdates(() => lookUpstream(this), false);
+        Updates = updates;
+      }
+    }
+    if (Listener) {
+      const sSlot = this.observers ? this.observers.length : 0;
+      if (!Listener.sources) {
+        Listener.sources = [this];
+        Listener.sourceSlots = [sSlot];
+      } else {
+        Listener.sources.push(this);
+        Listener.sourceSlots.push(sSlot);
+      }
+      if (!this.observers) {
+        this.observers = [Listener];
+        this.observerSlots = [Listener.sources.length - 1];
+      } else {
+        this.observers.push(Listener);
+        this.observerSlots.push(Listener.sources.length - 1);
+      }
+    }
+    if (runningTransition && Transition.sources.has(this)) return this.tValue;
+    return this.value;
+  }
+  function writeSignal(node, value, isComp) {
+    let current = Transition && Transition.running && Transition.sources.has(node) ? node.tValue : node.value;
+    if (!node.comparator || !node.comparator(current, value)) {
+      if (Transition) {
+        const TransitionRunning = Transition.running;
+        if (TransitionRunning || !isComp && Transition.sources.has(node)) {
+          Transition.sources.add(node);
+          node.tValue = value;
+        }
+        if (!TransitionRunning) node.value = value;
+      } else node.value = value;
+      if (node.observers && node.observers.length) {
+        runUpdates(() => {
+          for (let i = 0; i < node.observers.length; i += 1) {
+            const o = node.observers[i];
+            const TransitionRunning = Transition && Transition.running;
+            if (TransitionRunning && Transition.disposed.has(o)) continue;
+            if (TransitionRunning ? !o.tState : !o.state) {
+              if (o.pure) Updates.push(o);
+              else Effects.push(o);
+              if (o.observers) markDownstream(o);
+            }
+            if (!TransitionRunning) o.state = STALE;
+            else o.tState = STALE;
+          }
+          if (Updates.length > 1e6) {
+            Updates = [];
+            if (IS_DEV) ;
+            throw new Error();
+          }
+        }, false);
+      }
+    }
+    return value;
+  }
+  function updateComputation(node) {
+    if (!node.fn) return;
+    cleanNode(node);
+    const time = ExecCount;
+    runComputation(node, Transition && Transition.running && Transition.sources.has(node) ? node.tValue : node.value, time);
+    if (Transition && !Transition.running && Transition.sources.has(node)) {
+      queueMicrotask(() => {
+        runUpdates(() => {
+          Transition && (Transition.running = true);
+          Listener = Owner = node;
+          runComputation(node, node.tValue, time);
+          Listener = Owner = null;
+        }, false);
+      });
+    }
+  }
+  function runComputation(node, value, time) {
+    let nextValue;
+    const owner = Owner, listener = Listener;
+    Listener = Owner = node;
+    try {
+      nextValue = node.fn(value);
+    } catch (err) {
+      if (node.pure) {
+        if (Transition && Transition.running) {
+          node.tState = STALE;
+          node.tOwned && node.tOwned.forEach(cleanNode);
+          node.tOwned = void 0;
+        } else {
+          node.state = STALE;
+          node.owned && node.owned.forEach(cleanNode);
+          node.owned = null;
+        }
+      }
+      node.updatedAt = time + 1;
+      return handleError(err);
+    } finally {
+      Listener = listener;
+      Owner = owner;
+    }
+    if (!node.updatedAt || node.updatedAt <= time) {
+      if (node.updatedAt != null && "observers" in node) {
+        writeSignal(node, nextValue, true);
+      } else if (Transition && Transition.running && node.pure) {
+        Transition.sources.add(node);
+        node.tValue = nextValue;
+      } else node.value = nextValue;
+      node.updatedAt = time;
+    }
+  }
+  function createComputation(fn, init, pure, state = STALE, options) {
+    const c = {
+      fn,
+      state,
+      updatedAt: null,
+      owned: null,
+      sources: null,
+      sourceSlots: null,
+      cleanups: null,
+      value: init,
+      owner: Owner,
+      context: Owner ? Owner.context : null,
+      pure
+    };
+    if (Transition && Transition.running) {
+      c.state = 0;
+      c.tState = state;
+    }
+    if (Owner === null) ;
+    else if (Owner !== UNOWNED) {
+      if (Transition && Transition.running && Owner.pure) {
+        if (!Owner.tOwned) Owner.tOwned = [c];
+        else Owner.tOwned.push(c);
+      } else {
+        if (!Owner.owned) Owner.owned = [c];
+        else Owner.owned.push(c);
+      }
+    }
+    if (ExternalSourceConfig && c.fn) {
+      const [track, trigger] = createSignal(void 0, {
+        equals: false
+      });
+      const ordinary = ExternalSourceConfig.factory(c.fn, trigger);
+      onCleanup(() => ordinary.dispose());
+      const triggerInTransition = () => startTransition(trigger).then(() => inTransition.dispose());
+      const inTransition = ExternalSourceConfig.factory(c.fn, triggerInTransition);
+      c.fn = (x) => {
+        track();
+        return Transition && Transition.running ? inTransition.track(x) : ordinary.track(x);
+      };
+    }
+    return c;
+  }
+  function runTop(node) {
+    const runningTransition = Transition && Transition.running;
+    if ((runningTransition ? node.tState : node.state) === 0) return;
+    if ((runningTransition ? node.tState : node.state) === PENDING) return lookUpstream(node);
+    if (node.suspense && untrack(node.suspense.inFallback)) return node.suspense.effects.push(node);
+    const ancestors = [node];
+    while ((node = node.owner) && (!node.updatedAt || node.updatedAt < ExecCount)) {
+      if (runningTransition && Transition.disposed.has(node)) return;
+      if (runningTransition ? node.tState : node.state) ancestors.push(node);
+    }
+    for (let i = ancestors.length - 1; i >= 0; i--) {
+      node = ancestors[i];
+      if (runningTransition) {
+        let top = node, prev = ancestors[i + 1];
+        while ((top = top.owner) && top !== prev) {
+          if (Transition.disposed.has(top)) return;
+        }
+      }
+      if ((runningTransition ? node.tState : node.state) === STALE) {
+        updateComputation(node);
+      } else if ((runningTransition ? node.tState : node.state) === PENDING) {
+        const updates = Updates;
+        Updates = null;
+        runUpdates(() => lookUpstream(node, ancestors[0]), false);
+        Updates = updates;
+      }
+    }
+  }
+  function runUpdates(fn, init) {
+    if (Updates) return fn();
+    let wait = false;
+    if (!init) Updates = [];
+    if (Effects) wait = true;
+    else Effects = [];
+    ExecCount++;
+    try {
+      const res = fn();
+      completeUpdates(wait);
+      return res;
+    } catch (err) {
+      if (!wait) Effects = null;
+      Updates = null;
+      handleError(err);
+    }
+  }
+  function completeUpdates(wait) {
+    if (Updates) {
+      if (Scheduler && Transition && Transition.running) scheduleQueue(Updates);
+      else runQueue(Updates);
+      Updates = null;
+    }
+    if (wait) return;
+    let res;
+    if (Transition) {
+      if (!Transition.promises.size && !Transition.queue.size) {
+        const sources = Transition.sources;
+        const disposed = Transition.disposed;
+        Effects.push.apply(Effects, Transition.effects);
+        res = Transition.resolve;
+        for (const e2 of Effects) {
+          "tState" in e2 && (e2.state = e2.tState);
+          delete e2.tState;
+        }
+        Transition = null;
+        runUpdates(() => {
+          for (const d of disposed) cleanNode(d);
+          for (const v of sources) {
+            v.value = v.tValue;
+            if (v.owned) {
+              for (let i = 0, len = v.owned.length; i < len; i++) cleanNode(v.owned[i]);
+            }
+            if (v.tOwned) v.owned = v.tOwned;
+            delete v.tValue;
+            delete v.tOwned;
+            v.tState = 0;
+          }
+          setTransPending(false);
+        }, false);
+      } else if (Transition.running) {
+        Transition.running = false;
+        Transition.effects.push.apply(Transition.effects, Effects);
+        Effects = null;
+        setTransPending(true);
+        return;
+      }
+    }
+    const e = Effects;
+    Effects = null;
+    if (e.length) runUpdates(() => runEffects(e), false);
+    if (res) res();
+  }
+  function runQueue(queue) {
+    for (let i = 0; i < queue.length; i++) runTop(queue[i]);
+  }
+  function scheduleQueue(queue) {
+    for (let i = 0; i < queue.length; i++) {
+      const item = queue[i];
+      const tasks = Transition.queue;
+      if (!tasks.has(item)) {
+        tasks.add(item);
+        Scheduler(() => {
+          tasks.delete(item);
+          runUpdates(() => {
+            Transition.running = true;
+            runTop(item);
+          }, false);
+          Transition && (Transition.running = false);
+        });
+      }
+    }
+  }
+  function runUserEffects(queue) {
+    let i, userLength = 0;
+    for (i = 0; i < queue.length; i++) {
+      const e = queue[i];
+      if (!e.user) runTop(e);
+      else queue[userLength++] = e;
+    }
+    if (sharedConfig.context) {
+      if (sharedConfig.count) {
+        sharedConfig.effects || (sharedConfig.effects = []);
+        sharedConfig.effects.push(...queue.slice(0, userLength));
+        return;
+      }
+      setHydrateContext();
+    }
+    if (sharedConfig.effects && (sharedConfig.done || !sharedConfig.count)) {
+      queue = [...sharedConfig.effects, ...queue];
+      userLength += sharedConfig.effects.length;
+      delete sharedConfig.effects;
+    }
+    for (i = 0; i < userLength; i++) runTop(queue[i]);
+  }
+  function lookUpstream(node, ignore) {
+    const runningTransition = Transition && Transition.running;
+    if (runningTransition) node.tState = 0;
+    else node.state = 0;
+    for (let i = 0; i < node.sources.length; i += 1) {
+      const source = node.sources[i];
+      if (source.sources) {
+        const state = runningTransition ? source.tState : source.state;
+        if (state === STALE) {
+          if (source !== ignore && (!source.updatedAt || source.updatedAt < ExecCount)) runTop(source);
+        } else if (state === PENDING) lookUpstream(source, ignore);
+      }
+    }
+  }
+  function markDownstream(node) {
+    const runningTransition = Transition && Transition.running;
+    for (let i = 0; i < node.observers.length; i += 1) {
+      const o = node.observers[i];
+      if (runningTransition ? !o.tState : !o.state) {
+        if (runningTransition) o.tState = PENDING;
+        else o.state = PENDING;
+        if (o.pure) Updates.push(o);
+        else Effects.push(o);
+        o.observers && markDownstream(o);
+      }
+    }
+  }
+  function cleanNode(node) {
+    let i;
+    if (node.sources) {
+      while (node.sources.length) {
+        const source = node.sources.pop(), index = node.sourceSlots.pop(), obs = source.observers;
+        if (obs && obs.length) {
+          const n = obs.pop(), s = source.observerSlots.pop();
+          if (index < obs.length) {
+            n.sourceSlots[s] = index;
+            obs[index] = n;
+            source.observerSlots[index] = s;
+          }
+        }
+      }
+    }
+    if (node.tOwned) {
+      for (i = node.tOwned.length - 1; i >= 0; i--) cleanNode(node.tOwned[i]);
+      delete node.tOwned;
+    }
+    if (Transition && Transition.running && node.pure) {
+      reset(node, true);
+    } else if (node.owned) {
+      for (i = node.owned.length - 1; i >= 0; i--) cleanNode(node.owned[i]);
+      node.owned = null;
+    }
+    if (node.cleanups) {
+      for (i = node.cleanups.length - 1; i >= 0; i--) node.cleanups[i]();
+      node.cleanups = null;
+    }
+    if (Transition && Transition.running) node.tState = 0;
+    else node.state = 0;
+  }
+  function reset(node, top) {
+    if (!top) {
+      node.tState = 0;
+      Transition.disposed.add(node);
+    }
+    if (node.owned) {
+      for (let i = 0; i < node.owned.length; i++) reset(node.owned[i]);
+    }
+  }
+  function castError(err) {
+    if (err instanceof Error) return err;
+    return new Error(typeof err === "string" ? err : "Unknown error", {
+      cause: err
+    });
+  }
+  function runErrors(err, fns, owner) {
+    try {
+      for (const f of fns) f(err);
+    } catch (e) {
+      handleError(e, owner && owner.owner || null);
+    }
+  }
+  function handleError(err, owner = Owner) {
+    const fns = ERROR && owner && owner.context && owner.context[ERROR];
+    const error = castError(err);
+    if (!fns) throw error;
+    if (Effects) Effects.push({
+      fn() {
+        runErrors(error, fns, owner);
+      },
+      state: STALE
+    });
+    else runErrors(error, fns, owner);
+  }
+  var FALLBACK = Symbol("fallback");
+  function dispose(d) {
+    for (let i = 0; i < d.length; i++) d[i]();
+  }
+  function mapArray(list, mapFn, options = {}) {
+    let items = [], mapped = [], disposers = [], len = 0, indexes = mapFn.length > 1 ? [] : null;
+    onCleanup(() => dispose(disposers));
+    return () => {
+      let newItems = list() || [], newLen = newItems.length, i, j;
+      newItems[$TRACK];
+      return untrack(() => {
+        let newIndices, newIndicesNext, temp, tempdisposers, tempIndexes, start, end, newEnd, item;
+        if (newLen === 0) {
+          if (len !== 0) {
+            dispose(disposers);
+            disposers = [];
+            items = [];
+            mapped = [];
+            len = 0;
+            indexes && (indexes = []);
+          }
+          if (options.fallback) {
+            items = [FALLBACK];
+            mapped[0] = createRoot((disposer) => {
+              disposers[0] = disposer;
+              return options.fallback();
+            });
+            len = 1;
+          }
+        } else if (len === 0) {
+          mapped = new Array(newLen);
+          for (j = 0; j < newLen; j++) {
+            items[j] = newItems[j];
+            mapped[j] = createRoot(mapper);
+          }
+          len = newLen;
+        } else {
+          temp = new Array(newLen);
+          tempdisposers = new Array(newLen);
+          indexes && (tempIndexes = new Array(newLen));
+          for (start = 0, end = Math.min(len, newLen); start < end && items[start] === newItems[start]; start++) ;
+          for (end = len - 1, newEnd = newLen - 1; end >= start && newEnd >= start && items[end] === newItems[newEnd]; end--, newEnd--) {
+            temp[newEnd] = mapped[end];
+            tempdisposers[newEnd] = disposers[end];
+            indexes && (tempIndexes[newEnd] = indexes[end]);
+          }
+          newIndices = /* @__PURE__ */ new Map();
+          newIndicesNext = new Array(newEnd + 1);
+          for (j = newEnd; j >= start; j--) {
+            item = newItems[j];
+            i = newIndices.get(item);
+            newIndicesNext[j] = i === void 0 ? -1 : i;
+            newIndices.set(item, j);
+          }
+          for (i = start; i <= end; i++) {
+            item = items[i];
+            j = newIndices.get(item);
+            if (j !== void 0 && j !== -1) {
+              temp[j] = mapped[i];
+              tempdisposers[j] = disposers[i];
+              indexes && (tempIndexes[j] = indexes[i]);
+              j = newIndicesNext[j];
+              newIndices.set(item, j);
+            } else disposers[i]();
+          }
+          for (j = start; j < newLen; j++) {
+            if (j in temp) {
+              mapped[j] = temp[j];
+              disposers[j] = tempdisposers[j];
+              if (indexes) {
+                indexes[j] = tempIndexes[j];
+                indexes[j](j);
+              }
+            } else mapped[j] = createRoot(mapper);
+          }
+          mapped = mapped.slice(0, len = newLen);
+          items = newItems.slice(0);
+        }
+        return mapped;
+      });
+      function mapper(disposer) {
+        disposers[j] = disposer;
+        if (indexes) {
+          const [s, set] = createSignal(j);
+          indexes[j] = set;
+          return mapFn(newItems[j], s);
+        }
+        return mapFn(newItems[j]);
+      }
+    };
+  }
+  var hydrationEnabled = false;
+  function createComponent(Comp, props) {
+    if (hydrationEnabled) {
+      if (sharedConfig.context) {
+        const c = sharedConfig.context;
+        setHydrateContext(nextHydrateContext());
+        const r = untrack(() => Comp(props || {}));
+        setHydrateContext(c);
+        return r;
+      }
+    }
+    return untrack(() => Comp(props || {}));
+  }
+  function For(props) {
+    const fallback = "fallback" in props && {
+      fallback: () => props.fallback
+    };
+    return createMemo(mapArray(() => props.each, props.children, fallback || void 0));
+  }
+
+  // node_modules/solid-js/web/dist/web.js
+  var booleans = ["allowfullscreen", "async", "autofocus", "autoplay", "checked", "controls", "default", "disabled", "formnovalidate", "hidden", "indeterminate", "inert", "ismap", "loop", "multiple", "muted", "nomodule", "novalidate", "open", "playsinline", "readonly", "required", "reversed", "seamless", "selected"];
+  var Properties = /* @__PURE__ */ new Set(["className", "value", "readOnly", "noValidate", "formNoValidate", "isMap", "noModule", "playsInline", ...booleans]);
+  var memo = (fn) => createMemo(() => fn());
+  function reconcileArrays(parentNode, a, b) {
+    let bLength = b.length, aEnd = a.length, bEnd = bLength, aStart = 0, bStart = 0, after = a[aEnd - 1].nextSibling, map = null;
+    while (aStart < aEnd || bStart < bEnd) {
+      if (a[aStart] === b[bStart]) {
+        aStart++;
+        bStart++;
+        continue;
+      }
+      while (a[aEnd - 1] === b[bEnd - 1]) {
+        aEnd--;
+        bEnd--;
+      }
+      if (aEnd === aStart) {
+        const node = bEnd < bLength ? bStart ? b[bStart - 1].nextSibling : b[bEnd - bStart] : after;
+        while (bStart < bEnd) parentNode.insertBefore(b[bStart++], node);
+      } else if (bEnd === bStart) {
+        while (aStart < aEnd) {
+          if (!map || !map.has(a[aStart])) a[aStart].remove();
+          aStart++;
+        }
+      } else if (a[aStart] === b[bEnd - 1] && b[bStart] === a[aEnd - 1]) {
+        const node = a[--aEnd].nextSibling;
+        parentNode.insertBefore(b[bStart++], a[aStart++].nextSibling);
+        parentNode.insertBefore(b[--bEnd], node);
+        a[aEnd] = b[bEnd];
+      } else {
+        if (!map) {
+          map = /* @__PURE__ */ new Map();
+          let i = bStart;
+          while (i < bEnd) map.set(b[i], i++);
+        }
+        const index = map.get(a[aStart]);
+        if (index != null) {
+          if (bStart < index && index < bEnd) {
+            let i = aStart, sequence = 1, t;
+            while (++i < aEnd && i < bEnd) {
+              if ((t = map.get(a[i])) == null || t !== index + sequence) break;
+              sequence++;
+            }
+            if (sequence > index - bStart) {
+              const node = a[aStart];
+              while (bStart < index) parentNode.insertBefore(b[bStart++], node);
+            } else parentNode.replaceChild(b[bStart++], a[aStart++]);
+          } else aStart++;
+        } else a[aStart++].remove();
+      }
+    }
+  }
+  var $$EVENTS = "_$DX_DELEGATE";
+  function render(code, element, init, options = {}) {
+    let disposer;
+    createRoot((dispose2) => {
+      disposer = dispose2;
+      element === document ? code() : insert(element, code(), element.firstChild ? null : void 0, init);
+    }, options.owner);
+    return () => {
+      disposer();
+      element.textContent = "";
+    };
+  }
+  function template(html, isImportNode, isSVG, isMathML) {
+    let node;
+    const create = () => {
+      const t = isMathML ? document.createElementNS("http://www.w3.org/1998/Math/MathML", "template") : document.createElement("template");
+      t.innerHTML = html;
+      return isSVG ? t.content.firstChild.firstChild : isMathML ? t.firstChild : t.content.firstChild;
+    };
+    const fn = isImportNode ? () => untrack(() => document.importNode(node || (node = create()), true)) : () => (node || (node = create())).cloneNode(true);
+    fn.cloneNode = fn;
+    return fn;
+  }
+  function delegateEvents(eventNames, document2 = window.document) {
+    const e = document2[$$EVENTS] || (document2[$$EVENTS] = /* @__PURE__ */ new Set());
+    for (let i = 0, l = eventNames.length; i < l; i++) {
+      const name = eventNames[i];
+      if (!e.has(name)) {
+        e.add(name);
+        document2.addEventListener(name, eventHandler);
+      }
+    }
+  }
+  function setAttribute(node, name, value) {
+    if (isHydrating(node)) return;
+    if (value == null) node.removeAttribute(name);
+    else node.setAttribute(name, value);
+  }
+  function className(node, value) {
+    if (isHydrating(node)) return;
+    if (value == null) node.removeAttribute("class");
+    else node.className = value;
+  }
+  function use(fn, element, arg) {
+    return untrack(() => fn(element, arg));
+  }
+  function insert(parent, accessor, marker, initial) {
+    if (marker !== void 0 && !initial) initial = [];
+    if (typeof accessor !== "function") return insertExpression(parent, accessor, initial, marker);
+    createRenderEffect((current) => insertExpression(parent, accessor(), current, marker), initial);
+  }
+  function isHydrating(node) {
+    return !!sharedConfig.context && !sharedConfig.done && (!node || node.isConnected);
+  }
+  function eventHandler(e) {
+    if (sharedConfig.registry && sharedConfig.events) {
+      if (sharedConfig.events.find(([el, ev]) => ev === e)) return;
+    }
+    let node = e.target;
+    const key = `$$${e.type}`;
+    const oriTarget = e.target;
+    const oriCurrentTarget = e.currentTarget;
+    const retarget = (value) => Object.defineProperty(e, "target", {
+      configurable: true,
+      value
+    });
+    const handleNode = () => {
+      const handler = node[key];
+      if (handler && !node.disabled) {
+        const data = node[`${key}Data`];
+        data !== void 0 ? handler.call(node, data, e) : handler.call(node, e);
+        if (e.cancelBubble) return;
+      }
+      node.host && typeof node.host !== "string" && !node.host._$host && node.contains(e.target) && retarget(node.host);
+      return true;
+    };
+    const walkUpTree = () => {
+      while (handleNode() && (node = node._$host || node.parentNode || node.host)) ;
+    };
+    Object.defineProperty(e, "currentTarget", {
+      configurable: true,
+      get() {
+        return node || document;
+      }
+    });
+    if (sharedConfig.registry && !sharedConfig.done) sharedConfig.done = _$HY.done = true;
+    if (e.composedPath) {
+      const path = e.composedPath();
+      retarget(path[0]);
+      for (let i = 0; i < path.length - 2; i++) {
+        node = path[i];
+        if (!handleNode()) break;
+        if (node._$host) {
+          node = node._$host;
+          walkUpTree();
+          break;
+        }
+        if (node.parentNode === oriCurrentTarget) {
+          break;
+        }
+      }
+    } else walkUpTree();
+    retarget(oriTarget);
+  }
+  function insertExpression(parent, value, current, marker, unwrapArray) {
+    const hydrating = isHydrating(parent);
+    if (hydrating) {
+      !current && (current = [...parent.childNodes]);
+      let cleaned = [];
+      for (let i = 0; i < current.length; i++) {
+        const node = current[i];
+        if (node.nodeType === 8 && node.data.slice(0, 2) === "!$") node.remove();
+        else cleaned.push(node);
+      }
+      current = cleaned;
+    }
+    while (typeof current === "function") current = current();
+    if (value === current) return current;
+    const t = typeof value, multi = marker !== void 0;
+    parent = multi && current[0] && current[0].parentNode || parent;
+    if (t === "string" || t === "number") {
+      if (hydrating) return current;
+      if (t === "number") {
+        value = value.toString();
+        if (value === current) return current;
+      }
+      if (multi) {
+        let node = current[0];
+        if (node && node.nodeType === 3) {
+          node.data !== value && (node.data = value);
+        } else node = document.createTextNode(value);
+        current = cleanChildren(parent, current, marker, node);
+      } else {
+        if (current !== "" && typeof current === "string") {
+          current = parent.firstChild.data = value;
+        } else current = parent.textContent = value;
+      }
+    } else if (value == null || t === "boolean") {
+      if (hydrating) return current;
+      current = cleanChildren(parent, current, marker);
+    } else if (t === "function") {
+      createRenderEffect(() => {
+        let v = value();
+        while (typeof v === "function") v = v();
+        current = insertExpression(parent, v, current, marker);
+      });
+      return () => current;
+    } else if (Array.isArray(value)) {
+      const array = [];
+      const currentArray = current && Array.isArray(current);
+      if (normalizeIncomingArray(array, value, current, unwrapArray)) {
+        createRenderEffect(() => current = insertExpression(parent, array, current, marker, true));
+        return () => current;
+      }
+      if (hydrating) {
+        if (!array.length) return current;
+        if (marker === void 0) return current = [...parent.childNodes];
+        let node = array[0];
+        if (node.parentNode !== parent) return current;
+        const nodes = [node];
+        while ((node = node.nextSibling) !== marker) nodes.push(node);
+        return current = nodes;
+      }
+      if (array.length === 0) {
+        current = cleanChildren(parent, current, marker);
+        if (multi) return current;
+      } else if (currentArray) {
+        if (current.length === 0) {
+          appendNodes(parent, array, marker);
+        } else reconcileArrays(parent, current, array);
+      } else {
+        current && cleanChildren(parent);
+        appendNodes(parent, array);
+      }
+      current = array;
+    } else if (value.nodeType) {
+      if (hydrating && value.parentNode) return current = multi ? [value] : value;
+      if (Array.isArray(current)) {
+        if (multi) return current = cleanChildren(parent, current, marker, value);
+        cleanChildren(parent, current, null, value);
+      } else if (current == null || current === "" || !parent.firstChild) {
+        parent.appendChild(value);
+      } else parent.replaceChild(value, parent.firstChild);
+      current = value;
+    } else ;
+    return current;
+  }
+  function normalizeIncomingArray(normalized, array, current, unwrap) {
+    let dynamic = false;
+    for (let i = 0, len = array.length; i < len; i++) {
+      let item = array[i], prev = current && current[normalized.length], t;
+      if (item == null || item === true || item === false) ;
+      else if ((t = typeof item) === "object" && item.nodeType) {
+        normalized.push(item);
+      } else if (Array.isArray(item)) {
+        dynamic = normalizeIncomingArray(normalized, item, prev) || dynamic;
+      } else if (t === "function") {
+        if (unwrap) {
+          while (typeof item === "function") item = item();
+          dynamic = normalizeIncomingArray(normalized, Array.isArray(item) ? item : [item], Array.isArray(prev) ? prev : [prev]) || dynamic;
+        } else {
+          normalized.push(item);
+          dynamic = true;
+        }
+      } else {
+        const value = String(item);
+        if (prev && prev.nodeType === 3 && prev.data === value) normalized.push(prev);
+        else normalized.push(document.createTextNode(value));
+      }
+    }
+    return dynamic;
+  }
+  function appendNodes(parent, array, marker = null) {
+    for (let i = 0, len = array.length; i < len; i++) parent.insertBefore(array[i], marker);
+  }
+  function cleanChildren(parent, current, marker, replacement) {
+    if (marker === void 0) return parent.textContent = "";
+    const node = replacement || document.createTextNode("");
+    if (current.length) {
+      let inserted = false;
+      for (let i = current.length - 1; i >= 0; i--) {
+        const el = current[i];
+        if (node !== el) {
+          const isParent = el.parentNode === parent;
+          if (!inserted && !i) isParent ? parent.replaceChild(node, el) : parent.insertBefore(node, marker);
+          else isParent && el.remove();
+        } else inserted = true;
+      }
+    } else parent.insertBefore(node, marker);
+    return [node];
+  }
+  var RequestContext = Symbol();
+
+  // src/terminalData.js
+  var personalInfo = {
+    name: "Bekbolat Abaildayev",
+    username: "robertt3kuk",
+    title: "Software Engineer",
+    email: "awesome.abaildaev@yandex.kz",
+    phone: "+77073137691",
+    linkedin: "https://linkedin.com/in/robertt3kuk",
+    github: "https://github.com/robertt3kuk",
+    telegram: "https://t.me/biqontie",
+    location: "Kazakhstan",
+    summary: "Accomplished Go backend developer with over four years of experience in designing and implementing scalable systems. Proficient in MongoDB, PostgreSQL, and Kubernetes, with expertise in microservices architecture and API development using gRPC and GraphQL. Experienced in building secure internal banking systems with governmental integrations. Skilled in DevOps practices, including containerization, CI/CD pipelines, and system monitoring with tools like Grafana Loki. Passionate about writing clean, maintainable code and automating development workflows.",
+    skills: {
+      languages: ["Go", "JavaScript"],
+      databases: ["MongoDB", "PostgreSQL"],
+      technologies: ["gRPC", "GraphQL", "Docker", "Kubernetes", "CI/CD", "IPFS", "Ethereum Go library"],
+      cloud: ["AWS", "GCP", "AZURE", "Yandex Cloud"],
+      tools: ["Grafana Loki", "MinIO", "Code Generation Tooling", "Linux", "DevOps"]
+    },
+    experience: [
+      {
+        company: "Gexabyte",
+        position: "Golang Backend Developer",
+        period: "August 2024 - Present",
+        highlights: [
+          "Developed blockchain-based backend using Ethereum Go library, integrating smart contracts on Sepolia network",
+          "Implemented decentralized image storage with IPFS via Pinata and off-chain storage with MinIO",
+          "Optimized PostgreSQL database for secure and efficient data management",
+          "Collaborated with product teams to deliver scalable technical solutions"
+        ],
+        subProjects: [
+          {
+            name: "Zaman-Bank project (via RedMadRobot)",
+            period: "November 2024 - Present",
+            teams: [
+              {
+                name: "Retail Platform Team",
+                period: "November 2024 - December 2024",
+                highlights: [
+                  "Contributed to core library of internal banking system with multiple governmental integrations",
+                  "Developed microservices to support banking operations and ensure system scalability",
+                  "Implemented log monitoring in Kubernetes to enhance system observability",
+                  "Designed secret error case handling with numerical error identification for precise debugging"
+                ]
+              },
+              {
+                name: "SME Platform Team",
+                period: "January 2025 - Present",
+                highlights: [
+                  "Created bridge service to facilitate governmental integrations for internal banking system",
+                  "Enhanced core library with reusable components for SME banking operations",
+                  "Developed code generation tooling using templates to automate boilerplate code creation",
+                  "Streamlined internal code management and development workflows"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        company: "Union Strategies",
+        position: "Golang Backend Developer",
+        period: "February 2023 - July 2024",
+        location: "Toronto",
+        highlights: [
+          "Developed microservices for union management system using Go, PostgreSQL, and gRPC",
+          "Enhanced system observability with Grafana Loki for improved monitoring",
+          "Collaborated with product teams to implement feature enhancements and optimize performance"
+        ]
+      },
+      {
+        company: "mvp14",
+        position: "Golang Backend Developer",
+        period: "February 2023 - June 2023",
+        location: "Astana",
+        highlights: [
+          "Developed CRM system for construction workers using Golang, PostgreSQL, and GraphQL",
+          "Implemented user management, task management, and QR code scanning functionality",
+          "Enabled workers to scan QR codes for task location verification and capture completion proof",
+          "Implemented subtask management for complex tasks and employee performance monitoring"
+        ]
+      },
+      {
+        company: "BilimX",
+        position: "Golang Backend Developer",
+        period: "November 2022 - February 2023",
+        location: "Pavlodar",
+        highlights: [
+          "Created edtech platform for schools using Golang and PostgreSQL",
+          "Provided accessible 3D models, study plans, and detailed descriptions for subjects like anatomy and physics",
+          "Implemented secure session management, allowing only one session per user within school territory",
+          "Developed licensing system to prevent unauthorized access"
+        ]
+      },
+      {
+        company: "WeLoveFlutterFlow",
+        position: "Golang Backend Developer",
+        period: "June 2021 - October 2022",
+        location: "Astana",
+        highlights: [
+          "Built CRM platform using Golang and PostgreSQL",
+          "Developed RESTful API, task tracking, and role-based visibility features",
+          "Managed access for developers, managers, and DevOps engineers",
+          "Implemented customizable layers for task and project visibility",
+          "Created efficient project management and collaboration solution"
+        ]
+      }
+    ],
+    projects: [
+      {
+        name: "Distributed Task Queue",
+        description: "High-performance distributed task queue system built with Go",
+        tech: ["Go", "Redis", "gRPC", "Docker"],
+        url: "https://github.com/robertt3kuk/task-queue"
+      },
+      {
+        name: "Microservices Boilerplate",
+        description: "Production-ready microservices template with Go",
+        tech: ["Go", "Kubernetes", "Prometheus", "Jaeger"],
+        url: "https://github.com/robertt3kuk/go-microservices"
+      },
+      {
+        name: "Real-time Chat System",
+        description: "Scalable real-time chat application with WebSocket",
+        tech: ["Go", "WebSocket", "MongoDB", "React"],
+        url: "https://github.com/robertt3kuk/chat-system"
+      }
+    ]
+  };
+  var commands = {
+    help: {
+      description: "Show available commands",
+      execute: () => {
+        return [
+          "Available commands:",
+          "",
+          "Personal:",
+          "  about          - Display personal information",
+          "  skills         - List technical skills",
+          "  experience     - Show work experience",
+          "  projects       - Display GitHub projects",
+          "  contact        - Show contact information",
+          "",
+          "Actions:",
+          "  download       - Download CV as PDF",
+          "  message        - Send me a message",
+          "",
+          "System:",
+          "  help           - Show this help message",
+          "  clear          - Clear terminal (Ctrl+L)",
+          "  theme [mode]   - Change theme (light/dark)",
+          "  ls             - List available sections",
+          "  cat [section]  - Display section content",
+          "",
+          "Shortcuts:",
+          "  Tab            - Auto-complete commands",
+          "  \u2191/\u2193            - Navigate command history",
+          "  Ctrl+L         - Clear screen"
+        ];
+      }
+    },
+    about: {
+      description: "Display personal information",
+      execute: () => {
+        return [
+          `Name: ${personalInfo.name} (@${personalInfo.username})`,
+          `Title: ${personalInfo.title}`,
+          `Location: ${personalInfo.location}`,
+          "",
+          "Summary:",
+          personalInfo.summary,
+          "",
+          'Type "skills" to see technical skills or "experience" for work history.'
+        ];
+      }
+    },
+    skills: {
+      description: "List technical skills",
+      execute: () => {
+        const skillsOutput = ["Technical Skills:", ""];
+        Object.entries(personalInfo.skills).forEach(([category, items]) => {
+          skillsOutput.push(`${category.charAt(0).toUpperCase() + category.slice(1)}:`);
+          skillsOutput.push(`  ${items.join(", ")}`);
+          skillsOutput.push("");
+        });
+        return skillsOutput;
+      }
+    },
+    experience: {
+      description: "Show work experience",
+      execute: () => {
+        const expOutput = ["Work Experience:", ""];
+        personalInfo.experience.forEach((job) => {
+          expOutput.push(`${job.company}${job.location ? ", " + job.location : ""} | ${job.position}`);
+          expOutput.push(`${job.period}`);
+          job.highlights.forEach((highlight) => {
+            expOutput.push(`  \u2022 ${highlight}`);
+          });
+          if (job.subProjects) {
+            job.subProjects.forEach((project) => {
+              expOutput.push("");
+              expOutput.push(`  ${project.name} (${project.period}):`);
+              project.teams.forEach((team) => {
+                expOutput.push(`    ${team.name} (${team.period}):`);
+                team.highlights.forEach((highlight) => {
+                  expOutput.push(`      \u2022 ${highlight}`);
+                });
+              });
+            });
+          }
+          expOutput.push("");
+        });
+        return expOutput;
+      }
+    },
+    projects: {
+      description: "Display GitHub projects",
+      execute: () => {
+        const projOutput = ["GitHub Projects:", ""];
+        personalInfo.projects.forEach((project) => {
+          projOutput.push(`\u{1F4C1} ${project.name}`);
+          projOutput.push(`   ${project.description}`);
+          projOutput.push(`   Tech: ${project.tech.join(", ")}`);
+          projOutput.push(`   URL: ${project.url}`);
+          projOutput.push("");
+        });
+        return projOutput;
+      }
+    },
+    contact: {
+      description: "Show contact information",
+      execute: () => {
+        return [
+          "Contact Information:",
+          "",
+          `\u{1F4E7} Email: ${personalInfo.email}`,
+          `\u{1F4F1} Phone: ${personalInfo.phone}`,
+          `\u{1F4BC} LinkedIn: ${personalInfo.linkedin}`,
+          `\u{1F419} GitHub: ${personalInfo.github}`,
+          `\u{1F4AC} Telegram: ${personalInfo.telegram}`,
+          "",
+          "Feel free to reach out for opportunities or collaborations!"
+        ];
+      }
+    },
+    download: {
+      description: "Download CV as PDF",
+      execute: () => {
+        const link = document.createElement("a");
+        link.href = "/BekbolatAbaildayev_CV.pdf";
+        link.download = "BekbolatAbaildayev_CV.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return ["Downloading CV...", "File: BekbolatAbaildayev_CV.pdf"];
+      }
+    },
+    clear: {
+      description: "Clear terminal",
+      execute: (args, { setHistory }) => {
+        setHistory([]);
+        return null;
+      }
+    },
+    theme: {
+      description: "Change terminal theme",
+      execute: (args, { theme, setTheme }) => {
+        const newTheme = args[0];
+        if (!newTheme || !["light", "dark"].includes(newTheme)) {
+          return ["Usage: theme [light|dark]"];
+        }
+        setTheme(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("terminal-theme", newTheme);
+        return [`Theme changed to ${newTheme} mode`];
+      }
+    },
+    ls: {
+      description: "List available sections",
+      execute: () => {
+        return [
+          "about/",
+          "skills/",
+          "experience/",
+          "projects/",
+          "contact/",
+          "BekbolatAbaildayev_CV.pdf",
+          "",
+          'Use "cat [section]" to view content'
+        ];
+      }
+    },
+    cat: {
+      description: "Display section content",
+      execute: (args) => {
+        const section = args[0];
+        if (!section) {
+          return ["Usage: cat [section]", "Available sections: about, skills, experience, projects, contact"];
+        }
+        const sectionCommands = {
+          about: commands.about,
+          skills: commands.skills,
+          experience: commands.experience,
+          projects: commands.projects,
+          contact: commands.contact
+        };
+        if (sectionCommands[section]) {
+          return sectionCommands[section].execute();
+        }
+        return [`cat: ${section}: No such file or directory`];
+      }
+    },
+    whoami: {
+      description: "Display current user",
+      execute: () => [`guest@robertt3kuk.me`]
+    },
+    date: {
+      description: "Show current date and time",
+      execute: () => [(/* @__PURE__ */ new Date()).toString()]
+    },
+    echo: {
+      description: "Echo text back",
+      execute: (args) => [args.join(" ")]
+    },
+    neofetch: {
+      description: "Display system information",
+      execute: () => {
+        const asciiArt = [
+          "     ___    robertt3kuk@portfolio",
+          "    (.\xB7 |   ------------------",
+          "    (<> |   OS: Terminal v2.0",
+          "   / __  \\  Host: robertt3kuk.me",
+          "  ( /  \\ /| Shell: portfolio-sh",
+          " _/\\ __)/_) Uptime: since 2021",
+          " \\|-)_)_)   Languages: Go, JS",
+          "             Status: Available"
+        ];
+        return asciiArt;
+      }
+    },
+    message: {
+      description: "Send a message to me",
+      execute: async (args) => {
+        if (args.length === 0) {
+          return [
+            "Usage: message [your message here]",
+            "",
+            "Example: message Hello, I would like to discuss a project opportunity",
+            "",
+            "For multi-line messages, just type everything in one line."
+          ];
+        }
+        const message = args.join(" ");
+        if (message.trim().length < 10) {
+          return ["Error: Please provide a more detailed message (at least 10 characters)"];
+        }
+        const timestamp = (/* @__PURE__ */ new Date()).toISOString();
+        try {
+          const formData = new FormData();
+          formData.append("message", message);
+          formData.append("timestamp", timestamp);
+          formData.append("_subject", "New message from portfolio terminal");
+          const response = await fetch("https://formsubmit.co/ajax/awesome.abaildaev@yandex.kz", {
+            method: "POST",
+            headers: {
+              "Accept": "application/json"
+            },
+            body: formData
+          });
+          if (response.ok) {
+            return [
+              "\u2705 Message sent successfully!",
+              "",
+              "Thank you for reaching out. I'll get back to you soon via:",
+              `\u{1F4E7} Email: ${personalInfo.email}`,
+              `\u{1F4AC} Telegram: ${personalInfo.telegram}`,
+              "",
+              "For urgent matters, feel free to contact me directly."
+            ];
+          } else {
+            throw new Error("Failed to send message");
+          }
+        } catch (error) {
+          console.error("Error sending message:", error);
+          return [
+            "\u274C Failed to send message.",
+            "",
+            "Please try contacting me directly:",
+            `\u{1F4E7} Email: ${personalInfo.email}`,
+            `\u{1F4AC} Telegram: ${personalInfo.telegram}`,
+            "",
+            "Or try the message command again later."
+          ];
+        }
+      }
+    }
+  };
+
+  // src/CleanTerminal.jsx
+  var _tmpl$ = /* @__PURE__ */ template(`<div class=clean-terminal-container><div class=terminal-window><div class=terminal-header><div class=terminal-title><span class=terminal-icon>\u25CF</span>robertt3kuk ~ portfolio</div><div class=terminal-actions><button class=terminal-action>clear</button><button class=terminal-action></button></div></div><div class=terminal-body></div><div class=terminal-footer><div class=terminal-links><a target=_blank rel="noopener noreferrer">github</a><span class=separator>\u2022</span><a target=_blank rel="noopener noreferrer">linkedin</a><span class=separator>\u2022</span><a>email</a><span class=separator>\u2022</span><a target=_blank rel="noopener noreferrer">telegram</a></div><div class=terminal-hint>tab: autocomplete \u2022 \u2191\u2193: history \u2022 ctrl+l: clear`);
+  var _tmpl$2 = /* @__PURE__ */ template(`<div><span>`);
+  var _tmpl$3 = /* @__PURE__ */ template(`<span class=prompt>\u276F`);
+  var _tmpl$4 = /* @__PURE__ */ template(`<span class=cursor>`);
+  var _tmpl$5 = /* @__PURE__ */ template(`<div class="terminal-line input-line"><span class=prompt>\u276F</span><input type=text class=terminal-input placeholder autocomplete=off autocorrect=off autocapitalize=off>`);
+  function CleanTerminal(props) {
+    const [history, setHistory] = createSignal([]);
+    const [currentCommand, setCurrentCommand] = createSignal("");
+    const [commandHistory, setCommandHistory] = createSignal([]);
+    const [historyIndex, setHistoryIndex] = createSignal(-1);
+    const [isTyping, setIsTyping] = createSignal(false);
+    let terminalEl;
+    let inputEl;
+    const welcomeMessages = [{
+      text: "> Initializing terminal...",
+      delay: 0
+    }, {
+      text: "> ",
+      delay: 400
+    }, {
+      text: "Welcome to robertt3kuk.me",
+      delay: 600
+    }, {
+      text: "Software Engineer & Backend Developer",
+      delay: 800
+    }, {
+      text: "> ",
+      delay: 1200
+    }, {
+      text: 'Type "help" for available commands',
+      delay: 1400
+    }, {
+      text: 'Type "about" to learn more',
+      delay: 1600
+    }, {
+      text: "> ",
+      delay: 2e3
+    }];
+    onMount(() => {
+      displayWelcomeSequence();
+    });
+    const displayWelcomeSequence = async () => {
+      setIsTyping(true);
+      for (const msg of welcomeMessages) {
+        await sleep(msg.delay);
+        if (msg.text === "> ") {
+          setHistory([...history(), {
+            type: "blank",
+            content: ""
+          }]);
+        } else {
+          await typeMessage(msg.text, "system");
+        }
+      }
+      setIsTyping(false);
+      if (inputEl) inputEl.focus();
+    };
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const typeMessage = (text, type = "output") => {
+      return new Promise((resolve) => {
+        let index = 0;
+        const typeChar = () => {
+          if (index <= text.length) {
+            setHistory((prev) => {
+              const newHistory = [...prev];
+              const lastItem = newHistory[newHistory.length - 1];
+              if (lastItem && lastItem.typing) {
+                lastItem.content = text.substring(0, index);
+              } else {
+                newHistory.push({
+                  type,
+                  content: text.substring(0, index),
+                  typing: true
+                });
+              }
+              return newHistory;
+            });
+            index++;
+            if (index <= text.length) {
+              setTimeout(typeChar, 30);
+            } else {
+              setHistory((prev) => {
+                const newHistory = [...prev];
+                const lastItem = newHistory[newHistory.length - 1];
+                if (lastItem) lastItem.typing = false;
+                return newHistory;
+              });
+              setTimeout(() => {
+                scrollToBottom();
+                resolve();
+              }, 100);
+            }
+          }
+        };
+        typeChar();
+      });
+    };
+    const scrollToBottom = () => {
+      if (terminalEl) {
+        terminalEl.scrollTop = terminalEl.scrollHeight;
+      }
+    };
+    const handleCommand = async (cmd) => {
+      const trimmedCmd = cmd.trim();
+      if (trimmedCmd === "") return;
+      const [commandName, ...args] = trimmedCmd.split(" ");
+      setHistory([...history(), {
+        type: "command",
+        content: `$ ${trimmedCmd}`
+      }]);
+      if (commands[commandName]) {
+        try {
+          const output = await commands[commandName].execute(args, {
+            setHistory: (newHistory) => setHistory(newHistory),
+            theme: props.theme,
+            setTheme: props.setTheme
+          });
+          if (output) {
+            for (const line of output) {
+              setHistory([...history(), {
+                type: "output",
+                content: line
+              }]);
+              await sleep(10);
+              scrollToBottom();
+            }
+          }
+        } catch (error) {
+          console.error("Command error:", error);
+          setHistory([...history(), {
+            type: "error",
+            content: `Error: ${error.message || "Command execution failed"}`
+          }]);
+        }
+      } else {
+        await typeMessage(`Command not found: ${commandName}`, "error");
+        await typeMessage('Type "help" for available commands', "hint");
+      }
+      setCommandHistory([...commandHistory(), trimmedCmd]);
+      setHistoryIndex(-1);
+      scrollToBottom();
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        handleCommand(currentCommand());
+        setCurrentCommand("");
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const history2 = commandHistory();
+        const index = historyIndex();
+        if (index < history2.length - 1) {
+          const newIndex = index + 1;
+          setHistoryIndex(newIndex);
+          setCurrentCommand(history2[history2.length - 1 - newIndex]);
+        }
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const index = historyIndex();
+        if (index > 0) {
+          const newIndex = index - 1;
+          setHistoryIndex(newIndex);
+          setCurrentCommand(commandHistory()[commandHistory().length - 1 - newIndex]);
+        } else if (index === 0) {
+          setHistoryIndex(-1);
+          setCurrentCommand("");
+        }
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        handleTabCompletion();
+      } else if (e.ctrlKey && e.key === "l") {
+        e.preventDefault();
+        setHistory([]);
+      } else if (e.ctrlKey && e.key === "c") {
+        e.preventDefault();
+        setCurrentCommand("");
+        setHistory([...history(), {
+          type: "output",
+          content: "^C"
+        }]);
+      }
+    };
+    const handleTabCompletion = () => {
+      const input = currentCommand().toLowerCase();
+      if (!input) return;
+      const allCommands = Object.keys(commands);
+      const matches = allCommands.filter((cmd) => cmd.startsWith(input));
+      if (matches.length === 1) {
+        setCurrentCommand(matches[0] + " ");
+      } else if (matches.length > 1) {
+        setHistory([...history(), {
+          type: "output",
+          content: matches.join("  ")
+        }]);
+        scrollToBottom();
+      }
+    };
+    const focusInput = () => {
+      if (inputEl && !isTyping()) {
+        inputEl.focus();
+      }
+    };
+    return (() => {
+      var _el$ = _tmpl$(), _el$2 = _el$.firstChild, _el$3 = _el$2.firstChild, _el$4 = _el$3.firstChild, _el$5 = _el$4.nextSibling, _el$6 = _el$5.firstChild, _el$7 = _el$6.nextSibling, _el$8 = _el$3.nextSibling, _el$9 = _el$8.nextSibling, _el$0 = _el$9.firstChild, _el$1 = _el$0.firstChild, _el$10 = _el$1.nextSibling, _el$11 = _el$10.nextSibling, _el$12 = _el$11.nextSibling, _el$13 = _el$12.nextSibling, _el$14 = _el$13.nextSibling, _el$15 = _el$14.nextSibling;
+      _el$2.$$click = focusInput;
+      _el$6.$$click = () => setHistory([]);
+      _el$7.$$click = () => {
+        const newTheme = props.theme() === "dark" ? "light" : "dark";
+        props.setTheme(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("terminal-theme", newTheme);
+      };
+      insert(_el$7, () => props.theme() === "dark" ? "light" : "dark");
+      var _ref$ = terminalEl;
+      typeof _ref$ === "function" ? use(_ref$, _el$8) : terminalEl = _el$8;
+      insert(_el$8, createComponent(For, {
+        get each() {
+          return history();
+        },
+        children: (line) => (() => {
+          var _el$16 = _tmpl$2(), _el$17 = _el$16.firstChild;
+          insert(_el$16, (() => {
+            var _c$2 = memo(() => line.type === "command");
+            return () => _c$2() && _tmpl$3();
+          })(), _el$17);
+          insert(_el$17, () => line.content, null);
+          insert(_el$17, (() => {
+            var _c$3 = memo(() => !!line.typing);
+            return () => _c$3() && _tmpl$4();
+          })(), null);
+          createRenderEffect((_p$) => {
+            var _v$5 = `terminal-line ${line.type}`, _v$6 = line.typing ? "typing" : "";
+            _v$5 !== _p$.e && className(_el$16, _p$.e = _v$5);
+            _v$6 !== _p$.t && className(_el$17, _p$.t = _v$6);
+            return _p$;
+          }, {
+            e: void 0,
+            t: void 0
+          });
+          return _el$16;
+        })()
+      }), null);
+      insert(_el$8, (() => {
+        var _c$ = memo(() => !!!isTyping());
+        return () => _c$() && (() => {
+          var _el$20 = _tmpl$5(), _el$21 = _el$20.firstChild, _el$22 = _el$21.nextSibling;
+          _el$22.$$keydown = handleKeyDown;
+          _el$22.$$input = (e) => setCurrentCommand(e.target.value);
+          var _ref$2 = inputEl;
+          typeof _ref$2 === "function" ? use(_ref$2, _el$22) : inputEl = _el$22;
+          setAttribute(_el$22, "spellcheck", false);
+          createRenderEffect(() => _el$22.value = currentCommand());
+          return _el$20;
+        })();
+      })(), null);
+      createRenderEffect((_p$) => {
+        var _v$ = personalInfo.github, _v$2 = personalInfo.linkedin, _v$3 = `mailto:${personalInfo.email}`, _v$4 = personalInfo.telegram;
+        _v$ !== _p$.e && setAttribute(_el$1, "href", _p$.e = _v$);
+        _v$2 !== _p$.t && setAttribute(_el$11, "href", _p$.t = _v$2);
+        _v$3 !== _p$.a && setAttribute(_el$13, "href", _p$.a = _v$3);
+        _v$4 !== _p$.o && setAttribute(_el$15, "href", _p$.o = _v$4);
+        return _p$;
+      }, {
+        e: void 0,
+        t: void 0,
+        a: void 0,
+        o: void 0
+      });
+      return _el$;
+    })();
+  }
+  var CleanTerminal_default = CleanTerminal;
+  delegateEvents(["click", "input", "keydown"]);
+
+  // src/App.jsx
+  function App() {
+    const [theme, setTheme] = createSignal(localStorage.getItem("terminal-theme") || "dark");
+    onMount(() => {
+      document.documentElement.setAttribute("data-theme", theme());
+    });
+    return createComponent(CleanTerminal_default, {
+      theme,
+      setTheme
+    });
+  }
+  var App_default = App;
+
+  // src/index.jsx
+  render(() => createComponent(App_default, {}), document.getElementById("app"));
+})();
+//# sourceMappingURL=bundle.js.map

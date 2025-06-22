@@ -134,43 +134,27 @@ export const commands = {
       return [
         'Available commands:',
         '',
-        '📁 File System:',
-        '  ls             - List files in current directory',
-        '  cd [path]      - Change directory',
-        '  pwd            - Print working directory',
-        '  cat [file]     - Display file content',
-        '',
-        '👤 Personal:',
+        'Personal:',
         '  about          - Display personal information',
         '  skills         - List technical skills',
         '  experience     - Show work experience',
         '  projects       - Display GitHub projects',
         '  contact        - Show contact information',
+        '',
+        'Actions:',
         '  download       - Download CV as PDF',
         '  message        - Send me a message',
         '',
-        '🖥️ System:',
+        'System:',
         '  help           - Show this help message',
         '  clear          - Clear terminal (Ctrl+L)',
-        '  theme          - Change color scheme',
-        '  whoami         - Display current user',
-        '  date           - Show current date and time',
-        '  echo [text]    - Echo text back',
-        '  neofetch       - Display system information',
-        '  top            - Display system processes',
+        '  theme [mode]   - Change theme (light/dark)',
+        '  ls             - List available sections',
+        '  cat [section]  - Display section content',
         '',
-        '🌐 Network:',
-        '  ssh [host]     - Connect to remote host (demo)',
-        '  ping [host]    - Ping a host',
-        '',
-        '🎮 Interface:',
-        '  gui [panel]    - Toggle UI panels (files/monitor/network)',
-        '  matrix         - Toggle matrix rain effect',
-        '',
-        '⌨️ Shortcuts:',
+        'Shortcuts:',
         '  Tab            - Auto-complete commands',
         '  ↑/↓            - Navigate command history',
-        '  Ctrl+C         - Cancel current command',
         '  Ctrl+L         - Clear screen'
       ];
     }
@@ -306,14 +290,14 @@ export const commands = {
     description: 'List available sections',
     execute: () => {
       return [
-        'drwxr-xr-x  2 robertt3kuk  staff   64B  about/',
-        'drwxr-xr-x  2 robertt3kuk  staff   64B  skills/',
-        'drwxr-xr-x  2 robertt3kuk  staff   64B  experience/',
-        'drwxr-xr-x  2 robertt3kuk  staff   64B  projects/',
-        'drwxr-xr-x  2 robertt3kuk  staff   64B  contact/',
-        '-rw-r--r--  1 robertt3kuk  staff  2.1M  BekbolatAbaildayev_CV.pdf',
+        'about/',
+        'skills/',
+        'experience/',
+        'projects/',
+        'contact/',
+        'BekbolatAbaildayev_CV.pdf',
         '',
-        'Use "cat [section]" to view section content'
+        'Use "cat [section]" to view content'
       ];
     }
   },
@@ -361,19 +345,14 @@ export const commands = {
     description: 'Display system information',
     execute: () => {
       const asciiArt = [
-        '       _._     ',
-        '    .\'   `.    robertt3kuk@portfolio',
-        '   /  .-.  \\   ---------------------',
-        '  |  /   \\  |  OS: Terminal OS v1.0.0',
-        '  | |\\_.  /| |  Host: robertt3kuk.me',
-        '  |\\|  | /|/|  Kernel: 5.15.0-terminal',
-        '  |  `---\'  |  Uptime: since 2021',
-        '  |         |  Shell: portfolio-sh',
-        '  |         |  Terminal: Web Terminal',
-        '  |         |  CPU: Go @ 3.2GHz',
-        '  |         |  Memory: ∞',
-        '  |         |  ',
-        '  `---------\'  '
+        '     ___    robertt3kuk@portfolio',
+        '    (.· |   ------------------',
+        '    (<> |   OS: Terminal v2.0',
+        '   / __  \\  Host: robertt3kuk.me',
+        '  ( /  \\ /| Shell: portfolio-sh',
+        ' _/\\ __)/_) Uptime: since 2021',
+        ' \\|-)_)_)   Languages: Go, JS',
+        '             Status: Available'
       ];
       return asciiArt;
     }
