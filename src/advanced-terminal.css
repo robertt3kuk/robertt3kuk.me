@@ -1,0 +1,535 @@
+/* Advanced Terminal CSS */
+.advanced-terminal-container {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: #00ff00;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.1;
+}
+
+/* Terminal Grid Layout */
+.terminal-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr 250px;
+  grid-template-rows: 1fr;
+  gap: 1px;
+  height: calc(100vh - 30px);
+  background: #00ff00;
+  padding: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Panels */
+.panel {
+  background: #0a0a0a;
+  border: 1px solid #00ff00;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 0, 0.03) 2px,
+      rgba(0, 255, 0, 0.03) 4px
+    );
+  pointer-events: none;
+}
+
+.panel-header {
+  background: #111;
+  border-bottom: 1px solid #00ff00;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.panel-title {
+  color: #00ff00;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+.panel-close {
+  background: none;
+  border: none;
+  color: #00ff00;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: all 0.2s;
+}
+
+.panel-close:hover {
+  color: #ff0000;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+/* File System Panel */
+.file-system .path-bar {
+  background: #111;
+  border: 1px solid #00ff00;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #00ff00;
+}
+
+.file-tree {
+  font-size: 14px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.file-item:hover {
+  background: rgba(0, 255, 0, 0.1);
+  padding-left: 5px;
+}
+
+.file-icon {
+  font-size: 16px;
+}
+
+.file-name {
+  color: #00ff00;
+}
+
+/* System Monitor Panel */
+.monitor-item {
+  margin-bottom: 20px;
+}
+
+.monitor-label {
+  display: block;
+  font-size: 12px;
+  color: #00ff00;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background: #111;
+  border: 1px solid #00ff00;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-fill.cpu {
+  background: linear-gradient(90deg, #00ff00, #00cc00);
+}
+
+.progress-fill.memory {
+  background: linear-gradient(90deg, #00ffff, #0099ff);
+}
+
+.monitor-value {
+  display: block;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 600;
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+  margin-top: 5px;
+}
+
+/* Main Terminal */
+.main-terminal {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  background: #111;
+  border-bottom: 1px solid #00ff00;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.terminal-tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.tab {
+  background: #0a0a0a;
+  border: 1px solid #00ff00;
+  border-bottom: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tab.active {
+  background: #111;
+  border-bottom: 1px solid #111;
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.tab-title {
+  color: #00ff00;
+  font-size: 12px;
+}
+
+.tab-close {
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.tab-close:hover {
+  opacity: 1;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control.minimize {
+  background: #ffbd2e;
+  box-shadow: 0 0 10px rgba(255, 189, 46, 0.5);
+}
+
+.control.maximize {
+  background: #28ca42;
+  box-shadow: 0 0 10px rgba(40, 202, 66, 0.5);
+}
+
+.control.close {
+  background: #ff5f57;
+  box-shadow: 0 0 10px rgba(255, 95, 87, 0.5);
+}
+
+.control:hover {
+  transform: scale(1.2);
+}
+
+.terminal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terminal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-left: 1px solid #00ff00;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 0;
+}
+
+.terminal-line {
+  margin-bottom: 2px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.terminal-line.command {
+  color: #00ffff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.terminal-line.output {
+  color: #00ff00;
+}
+
+.terminal-line.error {
+  color: #ff0000;
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.terminal-line.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 0.5s steps(40, end);
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+}
+
+.prompt {
+  color: #00ffff;
+  font-weight: 600;
+  margin-right: 10px;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.terminal-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #00ff00;
+  font-family: inherit;
+  font-size: inherit;
+  caret-color: transparent;
+}
+
+.cursor-block {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background: #00ff00;
+  animation: blink 1s infinite;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Network Status Panel */
+.network-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.network-label {
+  font-size: 12px;
+  color: #00ff00;
+  text-transform: uppercase;
+}
+
+.network-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.network-value.online {
+  color: #00ff00;
+}
+
+.network-graph {
+  margin-top: 20px;
+  height: 100px;
+  background: #111;
+  border: 1px solid #00ff00;
+  position: relative;
+}
+
+.latency-graph {
+  width: 100%;
+  height: 100%;
+}
+
+/* Status Bar */
+.status-bar {
+  height: 30px;
+  background: #111;
+  border-top: 1px solid #00ff00;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.status-left,
+.status-center,
+.status-right {
+  display: flex;
+  gap: 20px;
+}
+
+.status-item {
+  font-size: 12px;
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.status-item.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .terminal-grid {
+    grid-template-columns: 200px 1fr;
+  }
+  
+  .network-status {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .terminal-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  
+  .file-system,
+  .system-monitor {
+    display: none;
+  }
+  
+  .main-terminal {
+    grid-column: 1;
+  }
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(0, 255, 0, 0.8),
+      0 0 10px rgba(0, 255, 0, 0.6),
+      0 0 15px rgba(0, 255, 0, 0.4);
+  }
+  20% {
+    text-shadow: 
+      2px 0 5px rgba(255, 0, 0, 0.8),
+      -2px 0 10px rgba(0, 255, 255, 0.6),
+      0 0 15px rgba(0, 255, 0, 0.4);
+  }
+  40% {
+    text-shadow: 
+      -2px 0 5px rgba(0, 255, 255, 0.8),
+      2px 0 10px rgba(255, 0, 255, 0.6),
+      0 0 15px rgba(0, 255, 0, 0.4);
+  }
+}
+
+.glitch {
+  animation: glitch 0.5s infinite;
+}
+
+/* Scanline Effect */
+.advanced-terminal-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 0, 0.02) 50%,
+    transparent 100%
+  );
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}

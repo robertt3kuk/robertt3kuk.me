@@ -1,5 +1,5 @@
 import { createSignal, onMount } from 'solid-js';
-import Terminal from './Terminal';
+import AdvancedTerminal from './AdvancedTerminal';
 import './app.css';
 
 function App() {
@@ -9,11 +9,7 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme());
   });
 
-  return (
-    <main class="app-container">
-      <Terminal theme={theme} setTheme={setTheme} />
-    </main>
-  );
+  return <AdvancedTerminal theme={theme} setTheme={setTheme} />;
 }
 
 export default App;
