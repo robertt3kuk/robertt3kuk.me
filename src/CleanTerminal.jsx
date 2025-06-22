@@ -206,8 +206,10 @@ function CleanTerminal(props) {
       <div class="terminal-window" onClick={focusInput}>
         <div class="terminal-header">
           <div class="terminal-title">
-            <span class="terminal-icon">●</span>
-            robertt3kuk ~ portfolio
+            <span class="terminal-icon"></span>
+            <span>robertt3kuk</span>
+            <span style="opacity: 0.5; margin: 0 0.5rem;">/</span>
+            <span style="opacity: 0.8;">portfolio</span>
           </div>
           <div class="terminal-actions">
             <button class="terminal-action" onClick={() => setHistory([])}>
@@ -260,23 +262,23 @@ function CleanTerminal(props) {
         <div class="terminal-footer">
           <div class="terminal-links">
             <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
-              github
+              GitHub
             </a>
             <span class="separator">•</span>
             <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
-              linkedin
+              LinkedIn
             </a>
             <span class="separator">•</span>
             <a href={`mailto:${personalInfo.email}`}>
-              email
+              Email
             </a>
             <span class="separator">•</span>
             <a href={personalInfo.telegram} target="_blank" rel="noopener noreferrer">
-              telegram
+              Telegram
             </a>
           </div>
           <div class="terminal-hint">
-            tab: autocomplete • ↑↓: history • ctrl+l: clear
+            Tab: Autocomplete • ↑↓: History • Ctrl+L: Clear
           </div>
         </div>
       </div>
