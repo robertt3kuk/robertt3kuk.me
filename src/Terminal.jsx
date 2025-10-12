@@ -300,6 +300,15 @@ function Terminal(props) {
     const value = e.target.value;
     setCurrentCommand(value);
     generateSuggestions(value);
+    
+    // Add typing animation class
+    const inputLine = e.target.closest('.input-line');
+    if (inputLine) {
+      inputLine.classList.add('typing');
+      setTimeout(() => {
+        inputLine.classList.remove('typing');
+      }, 400);
+    }
   };
 
   const selectSuggestion = (suggestion) => {
