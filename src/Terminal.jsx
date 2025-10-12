@@ -4,127 +4,127 @@ import './terminal.css';
 
 const colorSchemes = {
   dark: {
-    cyberpunk: {
-      name: 'Cyberpunk',
-      bg: '#0a0e1a',
-      fg: '#00ffcc',
-      border: '#1a2332',
-      header: '#0d1117',
-      prompt: '#00ffcc',
-      error: '#ff5f57',
-      text: '#8b92a8',
-      accent: '#00ffcc',
-      glow: 'rgba(0, 255, 255, 0.5)'
+    charm: {
+      name: 'Charm Dark',
+      bg: '#1a1b1e',
+      fg: '#e9e9ea',
+      border: '#303136',
+      header: '#25262a',
+      prompt: '#7dd3fc',
+      error: '#f87171',
+      text: '#a1a1aa',
+      accent: '#7dd3fc',
+      glow: 'rgba(125, 211, 252, 0.3)'
     },
-    gruvbox: {
-      name: 'Gruvbox Dark',
-      bg: '#282828',
-      fg: '#ebdbb2',
-      border: '#3c3836',
-      header: '#1d2021',
-      prompt: '#fabd2f',
-      error: '#fb4934',
-      text: '#ebdbb2',
-      accent: '#fabd2f',
-      glow: 'rgba(250, 189, 47, 0.5)'
+    lavender: {
+      name: 'Lavender',
+      bg: '#1e1a2e',
+      fg: '#e0e0e0',
+      border: '#3d2f5b',
+      header: '#2a1f3e',
+      prompt: '#c197fd',
+      error: '#f472b6',
+      text: '#a8a8a8',
+      accent: '#c197fd',
+      glow: 'rgba(193, 151, 253, 0.3)'
     },
-    catppuccin: {
-      name: 'Catppuccin Mocha',
-      bg: '#1e1e2e',
-      fg: '#cdd6f4',
-      border: '#313244',
-      header: '#181825',
-      prompt: '#89b4fa',
-      error: '#f38ba8',
-      text: '#cdd6f4',
-      accent: '#89b4fa',
-      glow: 'rgba(137, 180, 250, 0.5)'
+    midnight: {
+      name: 'Midnight',
+      bg: '#0f0f14',
+      fg: '#d4d4d8',
+      border: '#27272a',
+      header: '#18181b',
+      prompt: '#60a5fa',
+      error: '#f87171',
+      text: '#71717a',
+      accent: '#60a5fa',
+      glow: 'rgba(96, 165, 250, 0.3)'
     },
-    dracula: {
-      name: 'Dracula',
-      bg: '#282a36',
-      fg: '#f8f8f2',
-      border: '#44475a',
-      header: '#21222c',
-      prompt: '#50fa7b',
-      error: '#ff5555',
-      text: '#f8f8f2',
-      accent: '#50fa7b',
-      glow: 'rgba(80, 250, 123, 0.5)'
+    forest: {
+      name: 'Forest',
+      bg: '#1a2e1a',
+      fg: '#e8e8e8',
+      border: '#2d4a2d',
+      header: '#1f2f1f',
+      prompt: '#86efac',
+      error: '#fca5a5',
+      text: '#9ca3af',
+      accent: '#86efac',
+      glow: 'rgba(134, 239, 172, 0.3)'
     },
-    nord: {
-      name: 'Nord',
-      bg: '#2e3440',
-      fg: '#d8dee9',
-      border: '#3b4252',
-      header: '#242933',
-      prompt: '#88c0d0',
-      error: '#bf616a',
-      text: '#d8dee9',
-      accent: '#88c0d0',
-      glow: 'rgba(136, 192, 208, 0.5)'
+    sunset: {
+      name: 'Sunset',
+      bg: '#2a1a1e',
+      fg: '#f0f0f0',
+      border: '#4a2f36',
+      header: '#352025',
+      prompt: '#fbbf24',
+      error: '#f87171',
+      text: '#9ca3af',
+      accent: '#fbbf24',
+      glow: 'rgba(251, 191, 36, 0.3)'
     }
   },
   light: {
-    cyberpunk: {
-      name: 'Cyberpunk Light',
-      bg: '#f6f8fa',
-      fg: '#3b82f6',
-      border: '#d1d5db',
-      header: '#ffffff',
-      prompt: '#3b82f6',
+    charm: {
+      name: 'Charm Light',
+      bg: '#fafafa',
+      fg: '#171717',
+      border: '#e4e4e7',
+      header: '#f4f4f5',
+      prompt: '#0284c7',
       error: '#dc2626',
-      text: '#374151',
-      accent: '#3b82f6',
-      glow: 'rgba(59, 130, 246, 0.5)'
+      text: '#52525b',
+      accent: '#0284c7',
+      glow: 'rgba(2, 132, 199, 0.2)'
     },
-    gruvbox: {
-      name: 'Gruvbox Light',
-      bg: '#fbf1c7',
-      fg: '#3c3836',
-      border: '#ebdbb2',
-      header: '#f9f5d7',
-      prompt: '#d79921',
-      error: '#cc241d',
-      text: '#3c3836',
-      accent: '#d79921',
-      glow: 'rgba(215, 153, 33, 0.5)'
+    cream: {
+      name: 'Cream',
+      bg: '#fefdf8',
+      fg: '#1c1c1c',
+      border: '#e8e5dd',
+      header: '#f8f6f0',
+      prompt: '#059669',
+      error: '#dc2626',
+      text: '#525252',
+      accent: '#059669',
+      glow: 'rgba(5, 150, 105, 0.2)'
     },
-    catppuccin: {
-      name: 'Catppuccin Latte',
-      bg: '#eff1f5',
-      fg: '#4c4f69',
-      border: '#dce0e8',
-      header: '#e6e9ef',
-      prompt: '#1e66f5',
-      error: '#d20f39',
-      text: '#4c4f69',
-      accent: '#1e66f5',
-      glow: 'rgba(30, 102, 245, 0.5)'
+    sky: {
+      name: 'Sky',
+      bg: '#f0f9ff',
+      fg: '#0c1724',
+      border: '#bae6fd',
+      header: '#e0f2fe',
+      prompt: '#0369a1',
+      error: '#c53030',
+      text: '#475569',
+      accent: '#0369a1',
+      glow: 'rgba(3, 105, 161, 0.2)'
     },
-    solarized: {
-      name: 'Solarized Light',
-      bg: '#fdf6e3',
-      fg: '#657b83',
-      border: '#eee8d5',
-      header: '#eee8d5',
-      prompt: '#268bd2',
-      error: '#dc322f',
-      text: '#657b83',
-      accent: '#268bd2',
-      glow: 'rgba(38, 139, 210, 0.5)'
+    mint: {
+      name: 'Mint',
+      bg: '#f0fdfa',
+      fg: '#134e4a',
+      border: '#a7f3d0',
+      header: '#ccfbf1',
+      prompt: '#047857',
+      error: '#be123c',
+      text: '#475569',
+      accent: '#047857',
+      glow: 'rgba(4, 120, 87, 0.2)'
     },
-    github: {
-      name: 'GitHub Light',
-      bg: '#ffffff',
-      fg: '#24292e',
-      border: '#e1e4e8',
-      header: '#f6f8fa',
-      prompt: '#0366d6',
-      error: '#d73a49',
-      text: '#24292e',
-      accent: '#0366d6',
-      glow: 'rgba(3, 102, 214, 0.5)'
+    rose: {
+      name: 'Rose',
+      bg: '#fff1f2',
+      fg: '#1f0f12',
+      border: '#fecdd3',
+      header: '#ffe4e6',
+      prompt: '#be123c',
+      error: '#be123c',
+      text: '#52525b',
+      accent: '#be123c',
+      glow: 'rgba(190, 18, 60, 0.2)'
     }
   }
 };
@@ -135,32 +135,42 @@ function Terminal(props) {
   const [commandHistory, setCommandHistory] = createSignal([]);
   const [historyIndex, setHistoryIndex] = createSignal(-1);
   const [showColorPicker, setShowColorPicker] = createSignal(false);
-  const [currentScheme, setCurrentScheme] = createSignal('cyberpunk');
+  const [currentScheme, setCurrentScheme] = createSignal('charm');
   const [isTyping, setIsTyping] = createSignal(false);
   const [typingText, setTypingText] = createSignal('');
   const [typingIndex, setTypingIndex] = createSignal(0);
+  const [currentSection, setCurrentSection] = createSignal('home');
+  const [suggestions, setSuggestions] = createSignal([]);
+  const [showSuggestions, setShowSuggestions] = createSignal(false);
   
   let terminalEl;
   let inputEl;
 
-  // Welcome message to type
   const welcomeMessage = [
-    'System initializing...',
+    'Welcome to the terminal portfolio',
     '',
-    '██████╗  ██████╗ ██████╗ ███████╗██████╗ ████████╗████████╗██████╗ ██╗  ██╗██╗   ██╗██╗  ██╗',
-    '██╔══██╗██╔═══██╗██╔══██╗██╔════╝██╔══██╗╚══██╔══╝╚══██╔══╝╚════██╗██║ ██╔╝██║   ██║██║ ██╔╝',
-    '██████╔╝██║   ██║██████╔╝█████╗  ██████╔╝   ██║      ██║    █████╔╝█████╔╝ ██║   ██║█████╔╝ ',
-    '██╔══██╗██║   ██║██╔══██╗██╔══╝  ██╔══██╗   ██║      ██║    ╚═══██╗██╔═██╗ ██║   ██║██╔═██╗ ',
-    '██║  ██║╚██████╔╝██████╔╝███████╗██║  ██║   ██║      ██║   ██████╔╝██║  ██╗╚██████╔╝██║  ██╗',
-    '╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝',
+    '┌─────────────────────────────────────────────────────────────┐',
+    '│  Bekbolat Abaildayev • Software Engineer                      │',
+    '│  Go Backend Developer • 4+ years experience                 │',
+    '│  Building scalable systems with microservices architecture   │',
+    '└─────────────────────────────────────────────────────────────┘',
     '',
-    'Terminal Portfolio v2.0 | Powered by SolidJS & Bun',
-    `Welcome, ${new Date().toLocaleString()}`,
+    `Connected at ${new Date().toLocaleString()}`,
     '',
-    'Type "help" for available commands',
-    'Type "message" to send me a message',
-    'Type "theme" to change color scheme',
-    ''
+    'Available commands:',
+    '  about     • Display personal information',
+    '  skills    • List technical skills',
+    '  projects  • Show GitHub projects',
+    '  experience• Show work experience',
+    '  contact   • Get contact information',
+    '  message   • Send me a message',
+    '  theme     • Change color scheme',
+    '  clear     • Clear terminal',
+    '  nav       • Navigate between sections',
+    '',
+    'Type "help" for all commands or start exploring',
+    '',
+    { type: 'section', content: 'Quick Navigation', commands: ['about', 'skills', 'projects', 'contact'] }
   ];
 
   // Type welcome message on mount
@@ -179,11 +189,15 @@ function Terminal(props) {
 
   const typeLineWithDelay = (text) => {
     return new Promise((resolve) => {
-      setHistory([...history(), { type: 'output', content: text, animated: true }]);
+      if (typeof text === 'object' && text.type === 'section') {
+        setHistory([...history(), text]);
+      } else {
+        setHistory([...history(), { type: 'output', content: text, animated: true }]);
+      }
       setTimeout(() => {
         scrollToBottom();
         resolve();
-      }, 100);
+      }, 50);
     });
   };
 
@@ -202,6 +216,25 @@ function Terminal(props) {
       root.style.setProperty('--terminal-glow', scheme.glow);
     }
   });
+
+  const generateSuggestions = (input) => {
+    const allCommands = Object.keys(commands);
+    const matching = allCommands.filter(cmd => cmd.startsWith(input.toLowerCase()));
+    setSuggestions(matching.slice(0, 5));
+    setShowSuggestions(input.length > 0 && matching.length > 0);
+  };
+
+  const handleInput = (e) => {
+    const value = e.target.value;
+    setCurrentCommand(value);
+    generateSuggestions(value);
+  };
+
+  const selectSuggestion = (suggestion) => {
+    setCurrentCommand(suggestion);
+    setShowSuggestions(false);
+    if (inputEl) inputEl.focus();
+  };
 
   const scrollToBottom = () => {
     if (terminalEl) {
@@ -253,6 +286,7 @@ function Terminal(props) {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
+      setShowSuggestions(false);
       handleCommand(currentCommand());
       setCurrentCommand('');
     } else if (e.key === 'ArrowUp') {
@@ -263,6 +297,7 @@ function Terminal(props) {
         const newIndex = index + 1;
         setHistoryIndex(newIndex);
         setCurrentCommand(history[history.length - 1 - newIndex]);
+        setShowSuggestions(false);
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -275,8 +310,18 @@ function Terminal(props) {
         setHistoryIndex(-1);
         setCurrentCommand('');
       }
-    } else if (e.key === 'Escape' && showColorPicker()) {
-      setShowColorPicker(false);
+      setShowSuggestions(false);
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const currentSuggestions = suggestions();
+      if (currentSuggestions.length > 0) {
+        selectSuggestion(currentSuggestions[0]);
+      }
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+      if (showColorPicker()) {
+        setShowColorPicker(false);
+      }
     }
   };
 
@@ -305,7 +350,7 @@ function Terminal(props) {
             <span class="control minimize"></span>
             <span class="control maximize"></span>
           </div>
-          <span class="title">robertt3kuk@portfolio:~$</span>
+          <span class="title">robertt3kuk portfolio</span>
         </div>
         <div class="header-right">
           <button class="theme-toggle" onClick={() => {
@@ -321,11 +366,40 @@ function Terminal(props) {
       
       <div class="content">
         <For each={history()}>
-          {(line) => (
-            <div class={`line ${line.type} ${line.animated ? 'typing' : ''}`}>
-              {line.content}
-            </div>
-          )}
+          {(line) => {
+            if (line.type === 'section') {
+              return (
+                <div class="line section">
+                  <div class="section-header">
+                    <span class="section-icon">⚡</span>
+                    <span class="section-title">{line.content}</span>
+                  </div>
+                  <div class="section-commands">
+                    <For each={line.commands}>
+                      {(cmd) => (
+                        <button 
+                          class="section-command"
+                          onClick={() => {
+                            setCurrentCommand(cmd);
+                            handleCommand(cmd);
+                            setCurrentCommand('');
+                          }}
+                        >
+                          <span class="command-icon">→</span>
+                          <span>{cmd}</span>
+                        </button>
+                      )}
+                    </For>
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <div class={`line ${line.type} ${line.animated ? 'typing' : ''}`}>
+                {line.content}
+              </div>
+            );
+          }}
         </For>
         
         {showColorPicker() && (
@@ -355,6 +429,22 @@ function Terminal(props) {
           </div>
         )}
         
+        {showSuggestions() && (
+          <div class="suggestions">
+            <For each={suggestions()}>
+              {(suggestion) => (
+                <div 
+                  class="suggestion-item"
+                  onClick={() => selectSuggestion(suggestion)}
+                >
+                  <span class="suggestion-prompt">$</span>
+                  <span class="suggestion-text">{suggestion}</span>
+                </div>
+              )}
+            </For>
+          </div>
+        )}
+        
         {!isTyping() && (
           <div class="input-line">
             <span class="prompt">$ </span>
@@ -362,13 +452,14 @@ function Terminal(props) {
               ref={inputEl}
               type="text"
               value={currentCommand()}
-              onInput={(e) => setCurrentCommand(e.target.value)}
+              onInput={handleInput}
               onKeyDown={handleKeyDown}
               class="input"
               autocomplete="off"
               autocorrect="off"
               autocapitalize="off"
               spellcheck={false}
+              placeholder="Type a command..."
             />
             <span class="cursor"></span>
           </div>

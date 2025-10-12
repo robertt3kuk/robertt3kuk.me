@@ -1,130 +1,140 @@
 export const personalInfo = {
   name: 'Bekbolat Abaildayev',
   username: 'robertt3kuk',
-  title: 'Software Engineer',
+  title: 'Senior Go Backend Developer',
   email: 'awesome.abaildaev@yandex.kz',
-  phone: '+77073137691',
+  phone: '+7 707 313 7691',
   linkedin: 'https://linkedin.com/in/robertt3kuk',
   github: 'https://github.com/robertt3kuk',
   telegram: 'https://t.me/biqontie',
-  location: 'Kazakhstan',
-  summary: 'Accomplished Go backend developer with over four years of experience in designing and implementing scalable systems. Proficient in MongoDB, PostgreSQL, and Kubernetes, with expertise in microservices architecture and API development using gRPC and GraphQL. Experienced in building secure internal banking systems with governmental integrations. Skilled in DevOps practices, including containerization, CI/CD pipelines, and system monitoring with tools like Grafana Loki. Passionate about writing clean, maintainable code and automating development workflows.',
+  location: 'Almaty, Kazakhstan',
+  summary: 'Senior Go Backend Developer with over 4 years of experience building scalable microservices and distributed systems. Specialized in high-performance backend development, cloud architecture, and DevOps practices. Proven track record in fintech, edtech, and enterprise applications.',
   skills: {
-    languages: ['Go', 'JavaScript'],
-    databases: ['MongoDB', 'PostgreSQL'],
-    technologies: ['gRPC', 'GraphQL', 'Docker', 'Kubernetes', 'CI/CD', 'IPFS', 'Ethereum Go library'],
-    cloud: ['AWS', 'GCP', 'AZURE', 'Yandex Cloud'],
-    tools: ['Grafana Loki', 'MinIO', 'Code Generation Tooling', 'Linux', 'DevOps']
+    languages: ['Go', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Kubernetes', 'gRPC', 'GraphQL', 'Gitlab CI/CD', 'AWS', 'RabbitMQ', 'Kafka', 'Elastic Stack', 'Jaeger', 'Prometheus', 'Grafana', 'Loki', 'Github', 'Jira', 'Linux'],
+    expertise: ['Microservice architecture', 'Distributed systems', 'Cloud platforms', 'DevOps & CI/CD', 'API design', 'Database optimization', 'System monitoring', 'Code generation', 'Clean code']
   },
   experience: [
     {
       company: 'Gexabyte',
-      position: 'Golang Backend Developer',
-      period: 'August 2024 - Present',
+      position: 'Senior Go Backend Developer',
+      period: 'Aug 2024 - Present',
+      location: 'Almaty, Kazakhstan',
       highlights: [
-        'Developed blockchain-based backend using Ethereum Go library, integrating smart contracts on Sepolia network',
-        'Implemented decentralized image storage with IPFS via Pinata and off-chain storage with MinIO',
-        'Optimized PostgreSQL database for secure and efficient data management',
-        'Collaborated with product teams to deliver scalable technical solutions'
+        'Developing blockchain-based backend solutions using Ethereum Go library',
+        'Implementing decentralized storage with IPFS and MinIO',
+        'Leading core library development for Zaman Bank project',
+        'Building code generation tools for automated development',
+        'Designing bridge services for governmental integrations'
       ],
-      subProjects: [
+      projects: [
         {
-          name: 'Zaman-Bank project (via RedMadRobot)',
-          period: 'November 2024 - Present',
-          teams: [
-            {
-              name: 'Retail Platform Team',
-              period: 'November 2024 - December 2024',
-              highlights: [
-                'Contributed to core library of internal banking system with multiple governmental integrations',
-                'Developed microservices to support banking operations and ensure system scalability',
-                'Implemented log monitoring in Kubernetes to enhance system observability',
-                'Designed secret error case handling with numerical error identification for precise debugging'
-              ]
-            },
-            {
-              name: 'SME Platform Team',
-              period: 'January 2025 - Present',
-              highlights: [
-                'Created bridge service to facilitate governmental integrations for internal banking system',
-                'Enhanced core library with reusable components for SME banking operations',
-                'Developed code generation tooling using templates to automate boilerplate code creation',
-                'Streamlined internal code management and development workflows'
-              ]
-            }
+          name: 'Zaman Bank Internal System',
+          role: 'Core Library Developer',
+          period: 'Nov 2024 - Present',
+          achievements: [
+            'Contributed to core library for internal banking system',
+            'Developed 15+ microservices supporting banking operations',
+            'Implemented log monitoring with Kubernetes and Grafana Loki',
+            'Designed error handling system with numerical codes'
+          ]
+        },
+        {
+          name: 'Blockchain Platform',
+          role: 'Backend Developer',
+          achievements: [
+            'Integrated smart contracts on Sepolia testnet',
+            'Built decentralized image storage system',
+            'Optimized PostgreSQL for blockchain data',
+            'Collaborated with product teams for technical delivery'
           ]
         }
-      ]
-    },
+      ]n    },
     {
       company: 'Union Strategies',
-      position: 'Golang Backend Developer',
-      period: 'February 2023 - July 2024',
-      location: 'Toronto',
+      position: 'Middle Go Backend Developer',
+      period: 'Feb 2023 - Jul 2024',
+      location: 'Toronto, Canada',
       highlights: [
-        'Developed microservices for union management system using Go, PostgreSQL, and gRPC',
-        'Enhanced system observability with Grafana Loki for improved monitoring',
-        'Collaborated with product teams to implement feature enhancements and optimize performance'
+        'Developed microservices for union management system',
+        'Enhanced system observability with Grafana Loki',
+        'Built RESTful and gRPC APIs',
+        'Implemented real-time monitoring and alerting'
       ]
     },
     {
       company: 'mvp14',
-      position: 'Golang Backend Developer',
-      period: 'February 2023 - June 2023',
-      location: 'Astana',
+      position: 'Middle Go Backend Developer',
+      period: 'Feb 2023 - Jun 2023',
+      location: 'Astana, Kazakhstan',
       highlights: [
-        'Developed CRM system for construction workers using Golang, PostgreSQL, and GraphQL',
-        'Implemented user management, task management, and QR code scanning functionality',
-        'Enabled workers to scan QR codes for task location verification and capture completion proof',
-        'Implemented subtask management for complex tasks and employee performance monitoring'
+        'Built CRM system for construction industry',
+        'Implemented QR code scanning for task verification',
+        'Created GraphQL API for mobile applications',
+        'Managed PostgreSQL database optimization'
       ]
     },
     {
       company: 'BilimX',
-      position: 'Golang Backend Developer',
-      period: 'November 2022 - February 2023',
-      location: 'Pavlodar',
+      position: 'Middle Go Backend Developer',
+      period: 'Nov 2022 - Feb 2023',
+      location: 'Pavlodar, Kazakhstan',
       highlights: [
-        'Created edtech platform for schools using Golang and PostgreSQL',
-        'Provided accessible 3D models, study plans, and detailed descriptions for subjects like anatomy and physics',
-        'Implemented secure session management, allowing only one session per user within school territory',
-        'Developed licensing system to prevent unauthorized access'
+        'Developed edtech platform for schools',
+        'Implemented secure session management',
+        'Created 3D model delivery system',
+        'Built licensing system for access control'
       ]
     },
     {
       company: 'WeLoveFlutterFlow',
-      position: 'Golang Backend Developer',
-      period: 'June 2021 - October 2022',
-      location: 'Astana',
+      position: 'Junior Go Backend Developer',
+      period: 'Jun 2021 - Oct 2022',
+      location: 'Astana, Kazakhstan',
       highlights: [
-        'Built CRM platform using Golang and PostgreSQL',
-        'Developed RESTful API, task tracking, and role-based visibility features',
-        'Managed access for developers, managers, and DevOps engineers',
-        'Implemented customizable layers for task and project visibility',
-        'Created efficient project management and collaboration solution'
+        'Built CRM platform for development teams',
+        'Developed RESTful API with role-based access',
+        'Implemented task tracking and project management',
+        'Created customizable visibility layers'
       ]
     }
   ],
   projects: [
     {
-      name: 'Distributed Task Queue',
-      description: 'High-performance distributed task queue system built with Go',
-      tech: ['Go', 'Redis', 'gRPC', 'Docker'],
-      url: 'https://github.com/robertt3kuk/task-queue'
+      name: 'Core Banking System',
+      description: 'Internal banking system with governmental integrations and microservices architecture',
+      tech: ['Go', 'PostgreSQL', 'gRPC', 'Kubernetes', 'Grafana Loki'],
+      achievements: ['Core library development', '15+ microservices', 'Real-time monitoring', 'Error handling system'],
+      url: 'https://github.com/robertt3kuk'
     },
     {
-      name: 'Microservices Boilerplate',
-      description: 'Production-ready microservices template with Go',
-      tech: ['Go', 'Kubernetes', 'Prometheus', 'Jaeger'],
-      url: 'https://github.com/robertt3kuk/go-microservices'
+      name: 'Blockchain Platform',
+      description: 'Decentralized platform with smart contracts and IPFS storage integration',
+      tech: ['Go', 'Ethereum', 'IPFS', 'MinIO', 'Docker'],
+      achievements: ['Smart contract integration', 'Decentralized storage', 'Sepolia testnet deployment'],
+      url: 'https://github.com/robertt3kuk'
     },
     {
-      name: 'Real-time Chat System',
-      description: 'Scalable real-time chat application with WebSocket',
-      tech: ['Go', 'WebSocket', 'MongoDB', 'React'],
-      url: 'https://github.com/robertt3kuk/chat-system'
+      name: 'Code Generation Tools',
+      description: 'Template-based code generation system for automated development workflows',
+      tech: ['Go', 'Templates', 'Automation', 'CLI'],
+      achievements: ['Boilerplate reduction', 'Template system', 'Development workflow automation'],
+      url: 'https://github.com/robertt3kuk'
+    },
+    {
+      name: 'EdTech Platform',
+      description: 'Educational platform with 3D models, licensing, and session management',
+      tech: ['Go', 'PostgreSQL', 'GraphQL', 'QR Code'],
+      achievements: ['3D content delivery', 'Secure licensing', 'Mobile app backend'],
+      url: 'https://github.com/robertt3kuk'
+    },
+    {
+      name: 'Construction CRM',
+      description: 'CRM system for construction industry with task tracking and QR verification',
+      tech: ['Go', 'MongoDB', 'GraphQL', 'QR Code'],
+      achievements: ['Task management', 'QR verification', 'Performance monitoring'],
+      url: 'https://github.com/robertt3kuk'
     }
-  ]
+  ],
 };
 
 export const commands = {
