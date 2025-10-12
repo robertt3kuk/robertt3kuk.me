@@ -7,8 +7,9 @@
   <link rel="icon" type="image/svg+xml" href="/terminal.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* Modern reset and base styles */
     * {
       margin: 0;
       padding: 0;
@@ -16,16 +17,34 @@
     }
     
     body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #1e1e2e;
-      color: #cdd6f4;
-      height: 100vh;
-      overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0f;
+      color: #f8f8fc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      line-height: 1.5;
+      overflow-x: hidden;
     }
     
     #app {
       width: 100%;
-      height: 100vh;
+      max-width: 1200px;
+      height: 800px;
+    }
+    
+    /* Loading state */
+    body:before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #0a0a0f;
+      z-index: -1;
     }
   </style>
 </head>

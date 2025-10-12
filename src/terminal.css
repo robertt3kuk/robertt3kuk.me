@@ -2,6 +2,24 @@
 
 /* Modern Design System */
 :root {
+  /* Default color scheme - Midnight */
+  --terminal-bg: #0a0a0f;
+  --terminal-bg-rgb: 10, 10, 15;
+  --terminal-fg: #f8f8fc;
+  --terminal-border: #1a1a2e;
+  --terminal-header: #0f0f1a;
+  --terminal-prompt: #7dd3fc;
+  --terminal-accent: #7dd3fc;
+  --terminal-accent-rgb: 125, 211, 252;
+  --terminal-error: #f87171;
+  --terminal-error-rgb: 248, 113, 113;
+  --terminal-success: #22c55e;
+  --terminal-success-rgb: 34, 197, 94;
+  --terminal-text: #94a3b8;
+  --terminal-control-bg: #475569;
+  --terminal-control-glow: rgba(125, 211, 252, 0.3);
+  
+  /* Design tokens */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;

@@ -259,7 +259,8 @@ function Terminal(props) {
     });
   };
 
-  createEffect(() => {
+  // Set CSS variables immediately and on theme changes
+  const applyColorScheme = () => {
     const scheme = colorSchemes[props.theme()][currentScheme()];
     if (scheme) {
       const root = document.documentElement;
@@ -279,6 +280,13 @@ function Terminal(props) {
       root.style.setProperty('--terminal-control-bg', scheme.controlBg);
       root.style.setProperty('--terminal-control-glow', scheme.controlGlow);
     }
+  };
+
+  createEffect(applyColorScheme);
+  
+  // Also run once on mount
+  onMount(() => {
+    applyColorScheme();
   });
 
   const generateSuggestions = (input) => {
