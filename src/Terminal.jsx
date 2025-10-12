@@ -4,127 +4,187 @@ import './terminal.css';
 
 const colorSchemes = {
   dark: {
-    charm: {
-      name: 'Charm Dark',
-      bg: '#1a1b1e',
-      fg: '#e9e9ea',
-      border: '#303136',
-      header: '#25262a',
-      prompt: '#7dd3fc',
-      error: '#f87171',
-      text: '#a1a1aa',
-      accent: '#7dd3fc',
-      glow: 'rgba(125, 211, 252, 0.3)'
-    },
-    lavender: {
-      name: 'Lavender',
-      bg: '#1e1a2e',
-      fg: '#e0e0e0',
-      border: '#3d2f5b',
-      header: '#2a1f3e',
-      prompt: '#c197fd',
-      error: '#f472b6',
-      text: '#a8a8a8',
-      accent: '#c197fd',
-      glow: 'rgba(193, 151, 253, 0.3)'
-    },
     midnight: {
       name: 'Midnight',
-      bg: '#0f0f14',
-      fg: '#d4d4d8',
-      border: '#27272a',
-      header: '#18181b',
-      prompt: '#60a5fa',
+      bg: '#0a0a0f',
+      bgRgb: '10, 10, 15',
+      fg: '#f8f8fc',
+      border: '#1a1a2e',
+      header: '#0f0f1a',
+      prompt: '#7dd3fc',
+      accent: '#7dd3fc',
+      accentRgb: '125, 211, 252',
       error: '#f87171',
-      text: '#71717a',
+      errorRgb: '248, 113, 113',
+      success: '#22c55e',
+      successRgb: '34, 197, 94',
+      text: '#94a3b8',
+      controlBg: '#475569',
+      controlGlow: 'rgba(125, 211, 252, 0.3)'
+    },
+    charcoal: {
+      name: 'Charcoal',
+      bg: '#18181b',
+      bgRgb: '24, 24, 27',
+      fg: '#fafafa',
+      border: '#27272a',
+      header: '#202023',
+      prompt: '#60a5fa',
       accent: '#60a5fa',
-      glow: 'rgba(96, 165, 250, 0.3)'
+      accentRgb: '96, 165, 250',
+      error: '#f87171',
+      errorRgb: '248, 113, 113',
+      success: '#22c55e',
+      successRgb: '34, 197, 94',
+      text: '#71717a',
+      controlBg: '#52525b',
+      controlGlow: 'rgba(96, 165, 250, 0.3)'
     },
     forest: {
       name: 'Forest',
-      bg: '#1a2e1a',
-      fg: '#e8e8e8',
-      border: '#2d4a2d',
-      header: '#1f2f1f',
-      prompt: '#86efac',
-      error: '#fca5a5',
-      text: '#9ca3af',
-      accent: '#86efac',
-      glow: 'rgba(134, 239, 172, 0.3)'
-    },
-    sunset: {
-      name: 'Sunset',
-      bg: '#2a1a1e',
-      fg: '#f0f0f0',
-      border: '#4a2f36',
-      header: '#352025',
-      prompt: '#fbbf24',
+      bg: '#0f1f0f',
+      bgRgb: '15, 31, 15',
+      fg: '#f0fdf4',
+      border: '#1a3a1a',
+      header: '#142514',
+      prompt: '#4ade80',
+      accent: '#4ade80',
+      accentRgb: '74, 222, 128',
       error: '#f87171',
-      text: '#9ca3af',
-      accent: '#fbbf24',
-      glow: 'rgba(251, 191, 36, 0.3)'
+      errorRgb: '248, 113, 113',
+      success: '#22c55e',
+      successRgb: '34, 197, 94',
+      text: '#86efac',
+      controlBg: '#166534',
+      controlGlow: 'rgba(74, 222, 128, 0.3)'
+    },
+    ocean: {
+      name: 'Ocean',
+      bg: '#0c1620',
+      bgRgb: '12, 22, 32',
+      fg: '#f0f9ff',
+      border: '#1e3a5f',
+      header: '#0f172a',
+      prompt: '#38bdf8',
+      accent: '#38bdf8',
+      accentRgb: '56, 189, 248',
+      error: '#f87171',
+      errorRgb: '248, 113, 113',
+      success: '#22c55e',
+      successRgb: '34, 197, 94',
+      text: '#7dd3fc',
+      controlBg: '#0e7490',
+      controlGlow: 'rgba(56, 189, 248, 0.3)'
+    },
+    purple: {
+      name: 'Purple',
+      bg: '#1a0f2e',
+      bgRgb: '26, 15, 46',
+      fg: '#faf5ff',
+      border: '#321f5b',
+      header: '#2a1f3e',
+      prompt: '#a78bfa',
+      accent: '#a78bfa',
+      accentRgb: '167, 139, 250',
+      error: '#f87171',
+      errorRgb: '248, 113, 113',
+      success: '#22c55e',
+      successRgb: '34, 197, 94',
+      text: '#c4b5fd',
+      controlBg: '#6d28d9',
+      controlGlow: 'rgba(167, 139, 250, 0.3)'
     }
   },
   light: {
-    charm: {
-      name: 'Charm Light',
+    pearl: {
+      name: 'Pearl',
       bg: '#fafafa',
-      fg: '#171717',
+      bgRgb: '250, 250, 250',
+      fg: '#0f0f0f',
       border: '#e4e4e7',
       header: '#f4f4f5',
       prompt: '#0284c7',
-      error: '#dc2626',
-      text: '#52525b',
       accent: '#0284c7',
-      glow: 'rgba(2, 132, 199, 0.2)'
+      accentRgb: '2, 132, 199',
+      error: '#dc2626',
+      errorRgb: '220, 38, 38',
+      success: '#16a34a',
+      successRgb: '22, 163, 74',
+      text: '#52525b',
+      controlBg: '#d4d4d8',
+      controlGlow: 'rgba(2, 132, 199, 0.2)'
     },
     cream: {
       name: 'Cream',
       bg: '#fefdf8',
+      bgRgb: '254, 253, 248',
       fg: '#1c1c1c',
       border: '#e8e5dd',
       header: '#f8f6f0',
       prompt: '#059669',
-      error: '#dc2626',
-      text: '#525252',
       accent: '#059669',
-      glow: 'rgba(5, 150, 105, 0.2)'
+      accentRgb: '5, 150, 105',
+      error: '#dc2626',
+      errorRgb: '220, 38, 38',
+      success: '#16a34a',
+      successRgb: '22, 163, 74',
+      text: '#525252',
+      controlBg: '#d1fae5',
+      controlGlow: 'rgba(5, 150, 105, 0.2)'
     },
     sky: {
       name: 'Sky',
       bg: '#f0f9ff',
+      bgRgb: '240, 249, 255',
       fg: '#0c1724',
       border: '#bae6fd',
       header: '#e0f2fe',
       prompt: '#0369a1',
-      error: '#c53030',
-      text: '#475569',
       accent: '#0369a1',
-      glow: 'rgba(3, 105, 161, 0.2)'
-    },
-    mint: {
-      name: 'Mint',
-      bg: '#f0fdfa',
-      fg: '#134e4a',
-      border: '#a7f3d0',
-      header: '#ccfbf1',
-      prompt: '#047857',
-      error: '#be123c',
+      accentRgb: '3, 105, 161',
+      error: '#c53030',
+      errorRgb: '197, 48, 48',
+      success: '#047857',
+      successRgb: '4, 120, 87',
       text: '#475569',
-      accent: '#047857',
-      glow: 'rgba(4, 120, 87, 0.2)'
+      controlBg: '#bfdbfe',
+      controlGlow: 'rgba(3, 105, 161, 0.2)'
     },
-    rose: {
-      name: 'Rose',
+    blush: {
+      name: 'Blush',
       bg: '#fff1f2',
+      bgRgb: '255, 241, 242',
       fg: '#1f0f12',
       border: '#fecdd3',
       header: '#ffe4e6',
       prompt: '#be123c',
-      error: '#be123c',
-      text: '#52525b',
       accent: '#be123c',
-      glow: 'rgba(190, 18, 60, 0.2)'
+      accentRgb: '190, 18, 60',
+      error: '#be123c',
+      errorRgb: '190, 18, 60',
+      success: '#16a34a',
+      successRgb: '22, 163, 74',
+      text: '#52525b',
+      controlBg: '#fecaca',
+      controlGlow: 'rgba(190, 18, 60, 0.2)'
+    },
+    mint: {
+      name: 'Mint',
+      bg: '#f0fdfa',
+      bgRgb: '240, 253, 250',
+      fg: '#134e4a',
+      border: '#a7f3d0',
+      header: '#ccfbf1',
+      prompt: '#047857',
+      accent: '#047857',
+      accentRgb: '4, 120, 87',
+      error: '#be123c',
+      errorRgb: '190, 18, 60',
+      success: '#047857',
+      successRgb: '4, 120, 87',
+      text: '#475569',
+      controlBg: '#a7f3d0',
+      controlGlow: 'rgba(4, 120, 87, 0.2)'
     }
   }
 };
@@ -135,7 +195,7 @@ function Terminal(props) {
   const [commandHistory, setCommandHistory] = createSignal([]);
   const [historyIndex, setHistoryIndex] = createSignal(-1);
   const [showColorPicker, setShowColorPicker] = createSignal(false);
-  const [currentScheme, setCurrentScheme] = createSignal('charm');
+  const [currentScheme, setCurrentScheme] = createSignal('midnight');
   const [isTyping, setIsTyping] = createSignal(false);
   const [typingText, setTypingText] = createSignal('');
   const [typingIndex, setTypingIndex] = createSignal(0);
@@ -147,30 +207,28 @@ function Terminal(props) {
   let inputEl;
 
   const welcomeMessage = [
-    'Welcome to the terminal portfolio',
+    'Welcome to your terminal portfolio',
     '',
     '┌─────────────────────────────────────────────────────────────┐',
-    '│  Bekbolat Abaildayev • Software Engineer                      │',
-    '│  Go Backend Developer • 4+ years experience                 │',
-    '│  Building scalable systems with microservices architecture   │',
+    '│  Bekbolat Abaildayev • Senior Go Backend Developer           │',
+    '│  Building scalable microservices & distributed systems       │',
+    '│  4+ years • FinTech • Blockchain • Cloud Architecture       │',
     '└─────────────────────────────────────────────────────────────┘',
     '',
-    `Connected at ${new Date().toLocaleString()}`,
+    `✨ Connected at ${new Date().toLocaleString()}`,
     '',
-    'Available commands:',
-    '  about     • Display personal information',
-    '  skills    • List technical skills',
-    '  projects  • Show GitHub projects',
-    '  experience• Show work experience',
-    '  contact   • Get contact information',
-    '  message   • Send me a message',
-    '  theme     • Change color scheme',
-    '  clear     • Clear terminal',
-    '  nav       • Navigate between sections',
+    '🚀 Quick Start:',
+    '  about      → Who I am & what I do',
+    '  skills     → Technical expertise',
+    '  experience → Work history & achievements',
+    '  projects   → Featured projects',
+    '  contact    → Get in touch',
+    '  message    → Send a direct message',
+    '  theme      → Change color scheme',
     '',
-    'Type "help" for all commands or start exploring',
+    '💡 Try the interactive navigation below or type "help" for more',
     '',
-    { type: 'section', content: 'Quick Navigation', commands: ['about', 'skills', 'projects', 'contact'] }
+    { type: 'section', content: 'Quick Navigation', commands: ['about', 'skills', 'experience', 'projects', 'contact'] }
   ];
 
   // Type welcome message on mount
@@ -206,14 +264,20 @@ function Terminal(props) {
     if (scheme) {
       const root = document.documentElement;
       root.style.setProperty('--terminal-bg', scheme.bg);
+      root.style.setProperty('--terminal-bg-rgb', scheme.bgRgb);
       root.style.setProperty('--terminal-fg', scheme.fg);
       root.style.setProperty('--terminal-border', scheme.border);
       root.style.setProperty('--terminal-header', scheme.header);
       root.style.setProperty('--terminal-prompt', scheme.prompt);
-      root.style.setProperty('--terminal-error', scheme.error);
-      root.style.setProperty('--terminal-text', scheme.text);
       root.style.setProperty('--terminal-accent', scheme.accent);
-      root.style.setProperty('--terminal-glow', scheme.glow);
+      root.style.setProperty('--terminal-accent-rgb', scheme.accentRgb);
+      root.style.setProperty('--terminal-error', scheme.error);
+      root.style.setProperty('--terminal-error-rgb', scheme.errorRgb);
+      root.style.setProperty('--terminal-success', scheme.success);
+      root.style.setProperty('--terminal-success-rgb', scheme.successRgb);
+      root.style.setProperty('--terminal-text', scheme.text);
+      root.style.setProperty('--terminal-control-bg', scheme.controlBg);
+      root.style.setProperty('--terminal-control-glow', scheme.controlGlow);
     }
   });
 
