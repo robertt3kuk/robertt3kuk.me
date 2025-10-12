@@ -48,7 +48,8 @@ export const personalInfo = {
             'Collaborated with product teams for technical delivery'
           ]
         }
-      ]n    },
+      ]
+    },
     {
       company: 'Union Strategies',
       position: 'Middle Go Backend Developer',
@@ -368,23 +369,64 @@ export const commands = {
     }
   },
   
+  nav: {
+    description: 'Navigate between sections',
+    execute: () => {
+      return [
+        '╭─────────────────────────────────────────────────────────╮',
+        '│                Navigation Menu                          │',
+        '╰─────────────────────────────────────────────────────────╯',
+        '',
+        '🧭 Quick Navigation:',
+        '',
+        'Use these commands to explore:',
+        '',
+        '1️⃣  about     → Personal information & summary',
+        '2️⃣  skills    → Technical skills & expertise',
+        '3️⃣  experience→ Work history & achievements',
+        '4️⃣  projects  → Featured projects portfolio',
+        '5️⃣  contact   → Contact details & availability',
+        '',
+        '🎯 Recommended Path:',
+        '  about → skills → experience → projects → contact',
+        '',
+        '💡 Pro tip: Click the section buttons for instant navigation!',
+        '💡 Use Tab to auto-complete commands',
+        '💡 Use ↑/↓ arrows for command history'
+      ];
+    }
+  },
+  
   message: {
     description: 'Send a message to me',
     execute: async (args) => {
       if (args.length === 0) {
         return [
-          'Usage: message [your message here]',
+          '╭─────────────────────────────────────────────────────────╮',
+          '│                 Send Message                            │',
+          '╰─────────────────────────────────────────────────────────╯',
           '',
-          'Example: message Hello, I would like to discuss a project opportunity',
+          '📝 Usage: message [your message here]',
           '',
-          'For multi-line messages, just type everything in one line.'
+          '💬 Example: message Hello, I would like to discuss a project opportunity',
+          '',
+          '✨ Tips for effective messages:',
+          '  • Be specific about your inquiry',
+          '  • Include relevant details about the opportunity',
+          '  • Mention your preferred contact method',
+          '',
+          '📧 I\'ll respond via email or Telegram within 24 hours'
         ];
       }
       
       const message = args.join(' ');
       
       if (message.trim().length < 10) {
-        return ['Error: Please provide a more detailed message (at least 10 characters)'];
+        return [
+          '❌ Error: Please provide a more detailed message (at least 10 characters)',
+          '',
+          '💡 Tip: Include specific details about your inquiry or opportunity'
+        ];
       }
       
       const timestamp = new Date().toISOString();
@@ -407,11 +449,15 @@ export const commands = {
           return [
             '✅ Message sent successfully!',
             '',
-            'Thank you for reaching out. I\'ll get back to you soon via:',
+            '🎉 Thank you for reaching out! I\'ll get back to you soon via:',
+            '',
             `📧 Email: ${personalInfo.email}`,
             `💬 Telegram: ${personalInfo.telegram}`,
             '',
-            'For urgent matters, feel free to contact me directly.'
+            '📞 For urgent matters, feel free to contact me directly:',
+            `    Phone: ${personalInfo.phone}`,
+            '',
+            '📍 Current availability: Open to opportunities'
           ];
         } else {
           throw new Error('Failed to send message');
@@ -421,11 +467,14 @@ export const commands = {
         return [
           '❌ Failed to send message.',
           '',
-          'Please try contacting me directly:',
-          `📧 Email: ${personalInfo.email}`,
-          `💬 Telegram: ${personalInfo.telegram}`,
+          '🔧 Technical issue detected. Please try one of these alternatives:',
           '',
-          'Or try the message command again later.'
+          `📧 Direct Email: ${personalInfo.email}`,
+          `💬 Telegram: ${personalInfo.telegram}`,
+          `📞 Phone: ${personalInfo.phone}`,
+          '',
+          '💡 You can also try the message command again later',
+          '   The form service might be temporarily unavailable'
         ];
       }
     }
